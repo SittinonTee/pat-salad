@@ -1,0 +1,113 @@
+.homepage {
+    background-image: url('/img/bg-Home.png');
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+}
+  .TopBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: brown; */
+    padding: 20px;
+    width: 100%;
+
+  }
+  
+  .Logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: rgb(228, 167, 0);
+  }
+  
+  .Menubar {
+    display: flex;
+    flex-direction: row; 
+    list-style: none;   
+    gap: 20px;
+    /* background-color: aquamarine; */
+  }
+  
+  .boxitem {
+    height: 40px;
+    width: 100px;
+    background-color: #ffffff;
+    color: black;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 10px;
+  }
+  .boxitem:hover {
+    color: #ffffff;
+    background-color: #598C4B;
+
+  }
+
+  
+  .buttomBox {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 40px; */
+    /* background-color: rgb(177, 13, 13); */
+    height: 40%;
+    width: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+  
+  .Buttomitem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* gap: 10px; */
+    color: rgb(0, 0, 0);
+    /* background-color: #598C4B; */
+    background-color: #DBE6D8;
+    border-radius: 30px;
+    box-shadow: 10px 10px 20px black;
+
+    width: 20%;
+    margin-top: 30px;
+    /* height: 80%; */
+  }
+  .Buttomitem:hover{
+ color: white;
+    background-color: #598C4B;
+
+  }
+  
+  .imageContainer {
+    width: 100%;
+    height: 60%;
+    /* background-color: lightblue ;  */
+    display: flex;  
+    align-items: center;
+    justify-content: center;
+}
+
+
+.textContainer {
+    width: 100%;
+    height: 40%;
+    /* background-color: orange;  */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  
