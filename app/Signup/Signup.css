@@ -33,17 +33,19 @@
     justify-content: center;
     flex-wrap: wrap;
     /* flex-direction: column; */
-    gap: 50px;
+    gap: 60px;
 
 }
 
 
 .TF-User,
-.TF-password,
+.TF-Email,
 .TF-fname,
 .TF-lname,
 .TF-phone,
-.TF-address {
+.TF-address,
+.TF-password,
+.TF-CFpassword {
     width: 35%;
     height: 20px;
     /* border-radius: 50px ; */
@@ -53,11 +55,13 @@
 
 
 .TF-User .MuiOutlinedInput-root,
-.TF-password .MuiOutlinedInput-root,
+.TF-Email .MuiOutlinedInput-root,
 .TF-fname .MuiOutlinedInput-root,
 .TF-lname .MuiOutlinedInput-root,
 .TF-phone .MuiOutlinedInput-root,
-.TF-address .MuiOutlinedInput-root {
+.TF-address .MuiOutlinedInput-root,
+.TF-password .MuiOutlinedInput-root,
+.TF-CFpassword .MuiOutlinedInput-root{
     border-radius: 20px;
     /* border: solid 4px black; */
     background-color: rgb(224, 224, 224);

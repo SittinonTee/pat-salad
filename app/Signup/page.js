@@ -30,11 +30,13 @@ export default function page() {
 
   const [formData, setFormData] = useState({
     name: '',
+    email:'',
     fname:'',
     lname:'',
     phone:'',
     address:'',
     password: '',
+    cfpassword: '',
     
   });
 
@@ -83,7 +85,7 @@ export default function page() {
         <form onSubmit={handleSubmit} className='Boxitem'>
           {/* <Stack spacing={2}> */}
 
-          <TextField className='TF-User'
+        <TextField className='TF-User'
             label="Username"
             name="name"
             value={formData.name}
@@ -91,30 +93,14 @@ export default function page() {
             required
           />
 
-          <TextField
-            className='TF-password'
-            label="Password"
-            name="password"
-            type={showPassword ? 'text' : 'password'}
-            value={formData.password}
+        <TextField className='TF-Email'
+            label="Email"
+            name="name"
+            value={formData.email}
             onChange={handleChange}
             required
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    onMouseUp={handleMouseUpPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-          />
-
+        />
+          
           <TextField className='TF-fname'
             label="Firstname"
             name="fname"
@@ -146,7 +132,57 @@ export default function page() {
             onChange={handleChange}
             required
           />
-          
+
+          <TextField
+            className='TF-password'
+            label="Password"
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            value={formData.password}
+            onChange={handleChange}
+            required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    onMouseUp={handleMouseUpPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+          />
+
+          <TextField
+            className='TF-CFpassword'
+            label="ConfirmPassword"
+            name="cfpassword"
+            type={showPassword ? 'text' : 'password'}
+            value={formData.cfpassword}
+            onChange={handleChange}
+            required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    onMouseUp={handleMouseUpPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+          />
+
+
+
           
 
           {error && <Typography color="error">{error}</Typography>}
