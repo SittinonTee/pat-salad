@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import './Login.css';
 import { TextField, Button, Typography, Box, Stack } from '@mui/material'
-
 // import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
@@ -16,20 +15,10 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-
-
-
-
-
-
-
 export default function page() {
 
-
   const [showPassword, setShowPassword] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -38,15 +27,10 @@ export default function page() {
     event.preventDefault();
   };
 
-
-
-
   const [formData, setFormData] = useState({
-    name: ' ',
-    password: ' ',
+    name: '',
+    password: '',
   });
-
-
 
   const [error, setError] = useState(null)
 
@@ -57,8 +41,6 @@ export default function page() {
     })
   }
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
@@ -68,7 +50,6 @@ export default function page() {
 
     if (isNaN(lat) || lat < -90 || lat > 90) return setError('Latitude must be between -90 and 90')
     if (isNaN(lon) || lon < -180 || lon > 180) return setError('Longitude must be between -180 and 180')
-
 
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/attractions`, {
@@ -87,23 +68,18 @@ export default function page() {
     }
   }
 
-
-
-
   return (
     <div className='Loginpage'>
-
+      
       <div className='Boxcenter'>
         {/* <div className='Boxitem'> */}
-
 
         <form onSubmit={handleSubmit} className='Boxitem'>
           {/* <Stack spacing={2}> */}
 
-
-          <div ></div>
+          <div></div><div></div>
           <TextField className='TF-User'
-            label="Name"
+            label="Username"
             name="name"
             value={formData.name}
             onChange={handleChange}
@@ -132,12 +108,32 @@ export default function page() {
               )
             }}
           />
+          
 
           {error && <Typography color="error">{error}</Typography>}
-          <Button variant="contained" color="primary" type="submit">
-            Submit
+
+          <Button 
+            sx={{
+              width: "100%",
+              maxWidth: "300px",
+              backgroundColor: "#547616",
+              borderRadius: "15px",
+              padding: "15px",
+              color: "white",
+              fontSize: "14px",
+              '&:hover': { backgroundColor: "#405812",color:"" } // เปลี่ยนสีเมื่อ hover
+              }}
+          > 
+              Submit
           </Button>
+          
           {/* </Stack> */}
+             
+              <p className='line'>___________________________</p>
+          <div className='noaccout'>
+              <a className='Noaccount'>Don't have an Accont?</a> <a className='signup' href='#' >Signup</a>
+          </div>
+
         </form>
 
         {/* <FormControl className='TF-User'>
@@ -180,9 +176,7 @@ export default function page() {
 
 
         {/* </div> */}
-        <div className='Boxitem' style={{ backgroundColor: 'red' }}>
-
-
+        <div className='Boxitem'>
 
         </div>
 
