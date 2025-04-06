@@ -1,5 +1,7 @@
 'use client';
 import './hompage.css';
+import { useSearchParams , useRouter} from 'next/navigation';
+import {useState,useEffect} from 'react'
 
 
 //install
@@ -30,6 +32,15 @@ import MailIcon from '@mui/icons-material/Mail';
 
 export default function Home() {
 
+  // const [isClient, setIsClient] = useState(false);
+
+  // useEffect(() => {
+  //   setIsClient(true); // ทำให้รู้ว่าเป็นฝั่ง Client
+  // }, []);
+
+
+
+
   const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       right: -3,
@@ -43,7 +54,7 @@ export default function Home() {
 
   //---------------------------------------------------------------------------------------------------------------
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -82,6 +93,14 @@ export default function Home() {
 
 
 
+  const searchParams = useSearchParams()
+  const username = searchParams.get('username')
+
+
+
+
+
+
 
 
 
@@ -106,7 +125,7 @@ export default function Home() {
             <h1>2</h1>
           </div> */}
           <div className='boxitem'>
-            <h1>Setting</h1>
+            <h1>{username}</h1>
           </div>
           <div className='boxitem'>
             <h1>Profile</h1>

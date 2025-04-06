@@ -1,21 +1,18 @@
 'use client';
 import React, { useState } from 'react'
 import './Login.css';
-import { TextField, Button, Typography, Box, Stack } from '@mui/material'
-// import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-// import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { TextField, Button, Typography, Box, Stack ,IconButton,InputAdornment} from '@mui/material'
+import {Visibility,VisibilityOff } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
+
+
+
 
 export default function page() {
+
+  const router = useRouter();
+  
+
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -28,7 +25,7 @@ export default function page() {
   };
 
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     password: '',
   });
 
@@ -45,14 +42,10 @@ export default function page() {
     e.preventDefault()
     setError(null)
 
-    const lat = parseFloat(formData.latitude)
-    const lon = parseFloat(formData.longitude)
 
-    if (isNaN(lat) || lat < -90 || lat > 90) return setError('Latitude must be between -90 and 90')
-    if (isNaN(lon) || lon < -180 || lon > 180) return setError('Longitude must be between -180 and 180')
-
+    console.log(formData)
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/attractions`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,8 +53,19 @@ export default function page() {
         body: JSON.stringify(formData),
       })
 
-      const result = await res.json()
-      router.push('../attractions')
+      const result= await res.json()
+      console.log(result);
+
+      if(result.Sentstatus===true){
+        console.log(result.username)
+        router.push(`../Homepage?username=${result.username}`)
+
+      }
+
+
+
+
+    
 
     } catch (err) {
       setError(err.message)
@@ -70,7 +74,7 @@ export default function page() {
 
   return (
     <div className='Loginpage'>
-      
+
       <div className='Boxcenter'>
         {/* <div className='Boxitem'> */}
 
@@ -80,8 +84,8 @@ export default function page() {
           <div></div><div></div>
           <TextField className='TF-User'
             label="Username"
-            name="name"
-            value={formData.name}
+            name="username"
+            value={formData.username}
             onChange={handleChange}
             required
           />
@@ -108,11 +112,12 @@ export default function page() {
               )
             }}
           />
-          
 
-          {error && <Typography color="error">{error}</Typography>}
 
-          <Button 
+          {error && <Typography color="error">{error}jjjj</Typography>}
+
+          <Button
+           type="submit"
             sx={{
               width: "100%",
               maxWidth: "300px",
@@ -121,17 +126,21 @@ export default function page() {
               padding: "15px",
               color: "white",
               fontSize: "14px",
-              '&:hover': { backgroundColor: "#405812",color:"" } // เปลี่ยนสีเมื่อ hover
-              }}
-          > 
-              Submit
+              '&:hover': { backgroundColor: "#405812", color: "" } // เปลี่ยนสีเมื่อ hover
+            }}
+          >
+            Submit
           </Button>
-          
+
           {/* </Stack> */}
-             
-              <p className='line'>___________________________</p>
+
+          <p className='line'>___________________________</p>
           <div className='noaccout'>
-              <a className='Noaccount'>Don't have an Accont?</a> <a className='signup' href='#' >Signup</a>
+            <a className='Noaccount'>Don't have an Accont?</a>
+
+            <a href={`../Signup`} className="signup">
+              signup
+            </a>
           </div>
 
         </form>

@@ -1,25 +1,26 @@
 'use client';
 import React, { useState } from 'react'
 import './Signup.css';
-import { TextField, Button, Typography, Box, Stack } from '@mui/material'
-// import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-// import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Phone } from '@mui/icons-material';
+import { useRouter } from 'next/navigation'
+import { TextField, Button, Typography, Box, Stack ,IconButton,InputAdornment} from '@mui/material'
+import {Visibility,VisibilityOff } from '@mui/icons-material';
 
-export default function page() {
+// import Visibility from '@mui/icons-material/Visibility';
+// import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+
+export default function Signup() {
+
+  const router = useRouter()
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const [error, setError] = useState(null)
+
+
+
+
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -29,7 +30,7 @@ export default function page() {
   };
 
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email:'',
     fname:'',
     lname:'',
@@ -40,7 +41,7 @@ export default function page() {
     
   });
 
-  const [error, setError] = useState(null)
+
 
   const handleChange = (e) => {
     setFormData({
@@ -49,18 +50,58 @@ export default function page() {
     })
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+
+//-------------------------------------handleSubmit----------------------------------------
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    if (!formData.username || !formData.email || !formData.password || !formData.phone) {
+      setError('Please fill in all fields');
+      return;
+    }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+  
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      setError('Please enter a valid phone number');
+      return;
+    }
+  
+
+    if (formData.password !== formData.cfpassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    
+
+    // alert("Yes")
+    await sendDataToBackend(formData);
+  };
+  
+
+
+
+
+
+//-------------------------------------sentData----------------------------------------
+  const sendDataToBackend = async (e) => {
+    // e.preventDefault()
     setError(null)
 
-    const lat = parseFloat(formData.latitude)
-    const lon = parseFloat(formData.longitude)
 
-    if (isNaN(lat) || lat < -90 || lat > 90) return setError('Latitude must be between -90 and 90')
-    if (isNaN(lon) || lon < -180 || lon > 180) return setError('Longitude must be between -180 and 180')
+
+
+    console.log('send Data to backend', formData);
+
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/attractions`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,13 +110,27 @@ export default function page() {
       })
 
       const result = await res.json()
-      router.push('../attractions')
+      // console.log(result)
+
+      if(result){
+        console.log(result)
+          router.push('../Login')
+
+      }
+
+
+    
 
     } catch (err) {
       setError(err.message)
     }
   }
 
+
+
+
+
+  //-------------------------------------Design----------------------------------------
   return (
     <div className='Signuppage'>
       
@@ -87,15 +142,15 @@ export default function page() {
 
         <TextField className='TF-User'
             label="Username"
-            name="name"
-            value={formData.name}
+            name="username"
+            value={formData.username}
             onChange={handleChange}
             required
           />
 
         <TextField className='TF-Email'
             label="Email"
-            name="name"
+            name="email"
             value={formData.email}
             onChange={handleChange}
             required
@@ -189,6 +244,7 @@ export default function page() {
 
           <div className='gpbutton'>
           <Button 
+            type="submit"
             sx={{
               width: "100%",
               maxWidth: "300px",
@@ -206,7 +262,7 @@ export default function page() {
           {/* </Stack> */}
                 <p className='line'>___________________________</p>
             <div className='noaccout'>
-                <a className='Noaccount'>Already have an Accont?</a> <a className='Login' href='#' >Login</a>
+                <a className='Noaccount'>Already have an Accont?</a> <a className='Login' href='../Login' >Login</a>
           </div>
           </div>
         </form>
@@ -252,23 +308,8 @@ export default function page() {
 
         {/* </div> */}
         <div className='Boxitem'>
-
         </div>
-
-
-
       </div>
-
-
-
-
-
-
-
-
-
-
     </div>
-
   );
 }

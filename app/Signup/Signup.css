@@ -1,39 +1,39 @@
 .Signuppage {
-    background-image: url('/img/bg-Login.png');
-    width: 100vw;
-    height: 100vh;
-    margin: 100;
-    padding: 0;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    /* align-content:center */
-    /* flex-direction: column;  */
-    justify-content: center;
+  background-image: url('/img/bg-Login.png');
+  width: 100vw;
+  height: 100vh;
+  margin: 100;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  /* align-content:center */
+  /* flex-direction: column;  */
+  justify-content: center;
 }
 
 .Boxcenter {
-    display: flex;
-    /* background-color: blueviolet; */
-    /* opacity: 50%; */
-    width: calc(100vw - 130px);
-    height: calc(100vh - 650px);
-    /* /* margin: 100px;                
-    border-radius: 8px; */
+  display: flex;
+  /* background-color: blueviolet; */
+  /* opacity: 50%; */
+  width: calc(100vw - 130px);
+  height: calc(100vh - 650px);
+  /* /* margin: 100px;                
+  border-radius: 8px; */
 }
 
 
 .Boxitem {
-    flex: 1;
-    /* background-color: aqua; */
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    /* flex-direction: column; */
-    gap: 60px;
+  flex: 1;
+  /* background-color: aqua; */
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+  gap: 60px;
 
 }
 
@@ -46,10 +46,10 @@
 .TF-address,
 .TF-password,
 .TF-CFpassword {
-    width: 35%;
-    height: 20px;
-    /* border-radius: 50px ; */
-    /* background-color: aqua; */
+  width: 35%;
+  height: 20px;
+  /* border-radius: 50px ; */
+  /* background-color: aqua; */
 
 }
 
@@ -62,50 +62,50 @@
 .TF-address .MuiOutlinedInput-root,
 .TF-password .MuiOutlinedInput-root,
 .TF-CFpassword .MuiOutlinedInput-root{
-    border-radius: 20px;
-    /* border: solid 4px black; */
-    background-color: rgb(224, 224, 224);
+  border-radius: 20px;
+  /* border: solid 4px black; */
+  background-color: rgb(224, 224, 224);
 
 }
 
 div.noaccount {
-    display: flex;
+  display: flex;
 }
 
 a.Noaccount {
-    color: dimgray;
-    margin-right: 25px;
+  color: dimgray;
+  margin-right: 25px;
 }
 
 a.Login {
-    color: #547616;
-    margin: 10px;
+  color: #547616;
+  margin: 10px;
 }
 
 p.line {
-    color: #547616;
-    display: 'flex';
-    text-align: center;
-    width: 100%;
-    margin: 10px;
+  color: #547616;
+  display: 'flex';
+  text-align: center;
+  width: 100%;
+  margin: 10px;
 }
 .gpbutton{
-    gap: 20px;
+  gap: 20px;
 }
 
 
 /* 
-  .inpurbox{
-    margin: 20px;
-  }
- */
+.inpurbox{
+  margin: 20px;
+}
+*/
 
 
 /*   
-  .TF-password .MuiInputLabel-root {
-    border-radius: 20px;
-  } */
+.TF-password .MuiInputLabel-root {
+  border-radius: 20px;
+} */
 /*   
-  .TF-password .MuiIconButton-root {
-    border-radius: 50%;
-  } */
+.TF-password .MuiIconButton-root {
+  border-radius: 50%;
+} */
