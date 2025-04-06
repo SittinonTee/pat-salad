@@ -61,7 +61,7 @@
 .TF-phone .MuiOutlinedInput-root,
 .TF-address .MuiOutlinedInput-root,
 .TF-password .MuiOutlinedInput-root,
-.TF-CFpassword .MuiOutlinedInput-root{
+.TF-CFpassword .MuiOutlinedInput-root {
   border-radius: 20px;
   /* border: solid 4px black; */
   background-color: rgb(224, 224, 224);
@@ -74,12 +74,10 @@ div.noaccount {
 
 a.Noaccount {
   color: dimgray;
-  margin-right: 25px;
 }
 
 a.Login {
   color: #547616;
-  margin: 10px;
 }
 
 p.line {
@@ -87,12 +85,19 @@ p.line {
   display: 'flex';
   text-align: center;
   width: 100%;
-  margin: 10px;
-}
-.gpbutton{
-  gap: 20px;
+  margin: 20px 0px 20px 0px;
 }
 
+.gpbutton {
+  gap: 20px;
+  flex-direction: column;
+  text-align: center;
+}
+
+div.err {
+  height: 50px;
+  text-align: center;
+}
 
 /* 
 .inpurbox{

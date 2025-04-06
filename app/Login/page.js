@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react'
 import './Login.css';
-import { TextField, Button, Typography, Box, Stack ,IconButton,InputAdornment} from '@mui/material'
-import {Visibility,VisibilityOff } from '@mui/icons-material';
+import { TextField, Button, Typography, Box, Stack, IconButton, InputAdornment } from '@mui/material'
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 
 
@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 export default function page() {
 
   const router = useRouter();
-  
+
 
 
   const [showPassword, setShowPassword] = useState(false);
@@ -53,10 +53,10 @@ export default function page() {
         body: JSON.stringify(formData),
       })
 
-      const result= await res.json()
+      const result = await res.json()
       console.log(result);
 
-      if(result.Sentstatus===true){
+      if (result.Sentstatus === true) {
         console.log(result.username)
         router.push(`../Homepage?username=${result.username}`)
 
@@ -65,7 +65,7 @@ export default function page() {
 
 
 
-    
+
 
     } catch (err) {
       setError(err.message)
@@ -113,36 +113,36 @@ export default function page() {
             }}
           />
 
+          <div className='gpbutton'>
 
-          {error && <Typography color="error">{error}jjjj</Typography>}
+            <div className='err'>
+              {error ? <Typography color="error">{error}</Typography> : null}
+            </div>
 
-          <Button
-           type="submit"
-            sx={{
-              width: "100%",
-              maxWidth: "300px",
-              backgroundColor: "#547616",
-              borderRadius: "15px",
-              padding: "15px",
-              color: "white",
-              fontSize: "14px",
-              '&:hover': { backgroundColor: "#405812", color: "" } // เปลี่ยนสีเมื่อ hover
-            }}
-          >
-            Submit
-          </Button>
+            <Button
+              type="submit"
+              sx={{
+                width: "100%",
+                minWidth: "250px",
+                maxWidth: "250px",
+                backgroundColor: "#547616",
+                borderRadius: "15px",
+                padding: "15px",
+                color: "white",
+                fontSize: "14px",
+                '&:hover': { backgroundColor: "#405812", color: "" } // เปลี่ยนสีเมื่อ hover
+              }}
+            >
+              Submit
+            </Button>
 
-          {/* </Stack> */}
+            {/* </Stack> */}
 
-          <p className='line'>___________________________</p>
-          <div className='noaccout'>
-            <a className='Noaccount'>Don't have an Accont?</a>
-
-            <a href={`../Signup`} className="signup">
-              signup
-            </a>
+            <p className='line'>________________________</p>
+            <div className='noaccout'>
+              <a className='Noaccount'>Don't have an Accont?</a> <a href={`../Signup`} className="signup">signup</a>
+            </div>
           </div>
-
         </form>
 
         {/* <FormControl className='TF-User'>
@@ -180,9 +180,6 @@ export default function page() {
               label="Password"
             />
           </FormControl> */}
-
-
-
 
         {/* </div> */}
         <div className='Boxitem'>
