@@ -1,7 +1,10 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { useSearchParams } from 'next/navigation';
 import './menu.css';
+
+import { DataContext } from '../layout';
+
 // import {useSearchParams} from 'next/navigation';
 
 
@@ -9,23 +12,26 @@ import './menu.css';
 export default function page() {
 
     const searchParams = useSearchParams();
-    const [type, setType] = useState("Salad");
+    const [type, setType] = useState('');
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
 
+
+
+    const {Menumane, setMenuname, cart, setCart, addToCart} = useContext(DataContext);
+
+
+
+
     useEffect(() => {
-        const getType = searchParams.get("type");
+        const getType = searchParams.get("type") ; 
         setType(getType);
-        //   if (getType) {
-        //     setType(getType);
-        //   }
     }, [searchParams]);
 
-
-
-
-
+   
     useEffect(() => {
+        if (!type) return; 
+
         const getdatamenu = async () => {
             try {
                 const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Getmenu?type=${type}`);
@@ -72,12 +78,12 @@ export default function page() {
                             <div key={datamenu.id || index} className="Boxmenu">
                                 <div className="Menu-name">{datamenu.nameENG}</div>
 
-                                <div className="Menu-Image"><img src={datamenu.image_url || "/api/placeholder/100/100"} alt={datamenu.name} /></div>
+                                <div className="Menu-Image"><img src={datamenu.image_url} alt={datamenu.name} /></div>
                                 
                                 <div className="Menu-price">{datamenu.price}</div>
 
                                 <div className='Box-button'>
-                                    <div className="order-button">
+                                    <div className="order-button" onClick={()=>{addToCart(datamenu)}}>
                                         Order
                                     </div>
                                 </div>

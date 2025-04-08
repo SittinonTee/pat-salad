@@ -18,6 +18,10 @@ import { red } from '@mui/material/colors';
 
 export default function Home() {
 
+  const router = useRouter();  
+  const searchParams = useSearchParams()
+  const username = searchParams.get('username')
+
   const { Menumane, setMenuname } = useContext(DataContext);
 
 
@@ -37,9 +41,7 @@ export default function Home() {
 
 
 
-  const router = useRouter();  
-  const searchParams = useSearchParams()
-  const username = searchParams.get('username')
+
 
 
   return (
@@ -53,8 +55,7 @@ export default function Home() {
           <div className='imageContainer'>
             <img src='/path/to/icon1.png' alt='icon' />
           </div>
-          <div className='textContainer' onClick={() => router.push('/Homepage/Menu?type=Salad')}
-          >
+          <div className='textContainer' onClick={() => router.push('/Homepage/Menu?type=Salad')}>
             <h1>Salad</h1>
           </div>
         </div>
@@ -62,8 +63,8 @@ export default function Home() {
           <div className='imageContainer'>
             <img src='/path/to/icon2.png' alt='icon' />
           </div>
-          <div className='textContainer'>
-            <h1>{Menumane}</h1>
+          <div className='textContainer'onClick={() => router.push('/Homepage/Menu?type=wrap')}>
+            <h1>wrap</h1>
             {/* <button onClick={()=>setData("deerrrrrrrr")}>ClickMe</button> */}
           </div>
         </div>

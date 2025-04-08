@@ -36,10 +36,35 @@ export default function navigationbar({ children }) {
     const isSaladPage = pathname.includes('/Homepage/Menu');
 
     const [Menumane , setMenuname] = useState("Terr")
+    const [cart, setCart] = useState([]);
 
 
 
+  const addToCart = (menu) =>{
+    setCart(preCart =>{
+      const checkmenu = preCart.find(i => i.nameENG === menu.nameENG);
+      if(checkmenu){
+        return preCart.map(i =>{
+          if(i.name===menu.name){
+            return { ...i, quantity: i.quantity + 1 };
+          }
+          return i;
+        })
+      }else{
+        return [...preCart,{...menu,quantity:1}]
+      }
+    })
 
+      console.log("Orde = ",cart);
+
+   
+  }
+
+
+  useEffect(() => {
+    console.log("Updated Cart:", cart);
+  }, [cart]); 
+  
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -60,34 +85,23 @@ export default function navigationbar({ children }) {
     };
   
     const DrawerList = (
-      <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Box>
-    );
+  <Box sx={{ width: 400 }} role="presentation" onClick={toggleDrawer(false)}>
+    <List>
+      {cart.map((Data, index) => (
+        <ListItem key={Data.menu_id} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <img src={Data.image_url} alt={Data.nameENG} width="30" height="30" />
+            </ListItemIcon>
+            <ListItemText primary={Data.nameENG} />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
+    <Divider />
+  </Box>
+);
+
 
 
     return (
@@ -116,7 +130,7 @@ export default function navigationbar({ children }) {
                     </div>
                 </div>
             </div>
-            <DataContext.Provider value={{Menumane,setMenuname}}>
+            <DataContext.Provider value={{Menumane, setMenuname, cart, setCart, addToCart }}>
             {children}
             </DataContext.Provider>
         </div>

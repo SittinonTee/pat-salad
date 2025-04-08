@@ -29,10 +29,11 @@
 
 .Saladpage{
   /* background-image: url('/img/bg-Home.png'); */
-  background-color: #ffffff;
+  background-color: #DBE6D8;
+  /* box-shadow: 0 2px 4px rgba(191, 43, 43, 0.1); */
   width: 100vw;
   height: 100vh;
-  margin: 0;
+  margin: 0; 
   padding: 0;
   background-size: cover;
   background-position: center;

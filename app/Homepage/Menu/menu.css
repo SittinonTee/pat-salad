@@ -135,7 +135,7 @@
   /* z-index: 4; */
   width: 80%;
   height: 100%;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 }
 
 
@@ -169,82 +169,133 @@
     display: none;
   }
    */
-.Boxmenu {
-  /* flex: 1; */
-  /* margin: 20px; */
-  min-width: 175px;
-  max-width: 175px;
-  height: 175px;
-  /* flex: 1 1 200px; */
-  /* ทำให้ขนาดยืดหยุ่น */
-  background-color: #c13838;
-  border-radius: 10px;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  /* justify-content: flex-start; */
-  /* align-items: center; */
-  position: relative;
-  overflow: hidden;
-  gap: 8px;
-}
-
-.Box-button {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  /* หรือกำหนดตาม layout */
-}
-
-div.Menu-name {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding:5px;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 10px;
-  text-align: center;
-}
-
-.Menu-Image {
-  flex: 1;
-  display: flex;
-  position: absolute;
-  top: 35px;
-  left: 35px;     /* จัดรูปแนวตั้ง */
-}
-
-.Menu-Image img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
-
-div.Menu-price {
-  position: absolute;
-  left: 15px;
-  bottom: 15px;
-}
-
-.order-button {
-  width: 100%;
-  min-width: 75px;
-  max-width: 75px;
-  background-color: #547616;
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 5px;
-  color: white;
-  font-size: 14px;
-  text-transform: none;
-  text-align: center;
-  cursor: pointer;
-  /* ป้องกันไม่ให้ตัวอักษรเป็น CAPS */
-}
-
-.order-button:hover {
-  background-color: #405812;
-  color: white;
-}
+   .Boxmenu {
+    min-width: 175px;
+    max-width: 175px;
+    height: 175px;
+    background: linear-gradient(135deg, #1a1a1a, #0d1d0a);
+    border-radius: 15px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    gap: 8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .Boxmenu:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+  }
+  
+  .Box-button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+  
+  div.Menu-name {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 12px;
+    text-align: center;
+    color: #0d1d0a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 2;
+    max-width: 80%;
+    overflow: hidden;
+    /* text-overflow: ellipsis;
+    white-space: nowrap; */
+  }
+  
+  .Menu-Image {
+    flex: 1;
+    display: flex;
+    position: absolute;
+    top: 38px;
+    left: 38px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .Menu-Image img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  div.Menu-price {
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    background-color: rgba(0,0,0,0.5);
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  
+  .order-button {
+    min-width: 75px;
+    max-width: 75px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: none;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
+  }
+  
+  .order-button:hover {
+    background-color: #3e8e41;
+    box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+  }
+  
+  /* เพิ่มเอฟเฟกต์เรืองแสงสีเขียวอ่อนๆ รอบขอบ */
+  .Boxmenu::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    box-shadow: inset 0 0 15px rgba(76, 175, 80, 0.3);
+    pointer-events: none;
+  }
+  
+  /* เพิ่มแพทเทิร์นสีเขียวที่ด้านหลัง */
+  .Boxmenu::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: 
+      radial-gradient(circle at 10% 20%, rgba(76, 175, 80, 0.1) 0%, transparent 20%),
+      radial-gradient(circle at 85% 60%, rgba(76, 175, 80, 0.1) 0%, transparent 30%);
+    z-index: 0;
+  }
 
 /* 
   
@@ -286,15 +337,12 @@ div.Menu-price {
 } */
 
 
-
-
-
 .circle {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 70vw;
-  height: 70vw;
+  width: 50vw;
+  height: 50vw;
   border-radius: 50%;
   background-color: #000;
   transform: translate(50%, 50%);
