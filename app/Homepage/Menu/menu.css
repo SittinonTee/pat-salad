@@ -1,85 +1,89 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
-    /* background-color: #000; */
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  /* background-color: #000; */
+}
 
-  .container {
-    max-width: 100%;
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
-    background-color: rgb(255, 255, 255);
-    display: flex;
-    flex-direction: column;
-   
-  }
-  
-  
-  
-  .contenttitle{
-    display: flex;
-    flex-direction: column;
-    padding: 0 20px;
-    position: relative;
-    z-index: 3;
-    background-color: aqua;
-    margin: 40px;
-  }
-  
-  .title {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
+.container {
+  max-width: 100%;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+
+}
 
 
-  .first-circle {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 70vw;
-    height: 70vw;
-    border-radius: 50%;
-    background-color: #000;
-    transform: translate(50%, 50%);
-    z-index: 1;
-  }
-  
+
+.contenttitle {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  position: relative;
+  z-index: 3;
+  background-color: aqua;
+  margin: 40px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
 
 
-  .Showimage {
-    position: absolute;
-    top: 50%;
-    /* right: 0; */
-    bottom: 70vw;  
-    right: 70vw;  
-    /* transform: translateY(-70%); */
-    transform: translate(50%, -50%); 
-    width: 50%;
-    max-width: 320px;
-    z-index: 3;
-  }
-  
 
-  .Showimage {
-    position: absolute;
-    bottom: 35vw;  /* 50% ของขนาดวงกลม */
-    right: 35vw;   /* 50% ของขนาดวงกลม */
-    transform: translate(100%, -70%);  /* เลื่อนให้อยู่มุมบนซ้ายของจุดที่กำหนด */
-    width: 20vw;
-    max-width: 300px;
-    z-index: 3;
-  }
-  
-  .Showimage img {
-    width: 100%;
-    border-radius: 50%;
-  }
-  /* .Showimage {
+.first-circle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  background-color: #000;
+  transform: translate(50%, 50%);
+  z-index: 1;
+}
+
+
+
+.Showimage {
+  position: absolute;
+  top: 50%;
+  /* right: 0; */
+  bottom: 70vw;
+  right: 70vw;
+  /* transform: translateY(-70%); */
+  transform: translate(50%, -50%);
+  width: 50%;
+  max-width: 320px;
+  z-index: 3;
+}
+
+
+.Showimage {
+  position: absolute;
+  bottom: 35vw;
+  /* 50% ของขนาดวงกลม */
+  right: 35vw;
+  /* 50% ของขนาดวงกลม */
+  transform: translate(100%, -70%);
+  /* เลื่อนให้อยู่มุมบนซ้ายของจุดที่กำหนด */
+  width: 20vw;
+  max-width: 300px;
+  z-index: 3;
+}
+
+.Showimage img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+/* .Showimage {
     position: absolute;
     bottom: 70vw;  
     right: 70vw;  
@@ -90,88 +94,158 @@
   } */
 
 
-  .carousel {
-    flex: 1;
-    display: flex;
-    gap: 12px;
-    /* margin-top: 80px; */
-    position: relative;
-    align-items: center;
-    z-index: 3;
-    background-color: #8b345a;
-    opacity: 0.7;
-    justify-content: space-between;
-  }
-
-
-.leftBox{
-    flex: 1;
-    display: flex;
-    /* gap: 12px; */
-    width: 100%;
-    height: 100%;
-    /* margin-top: 80px; */
-    /* position: relative; */
-    /* align-items: center; */
-    /* z-index: 4; */
-    background-color: #192ea3;
-    /* opacity: 0.7; */
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-.rigthBox{
-
-    flex: 1;
-    /* z-index: 4; */
-    width: 100%;
-    height: 100%;
-    background-color: aquamarine;
+.carousel {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  /* margin-top: 80px; */
+  position: relative;
+  align-items: center;
+  z-index: 3;
+  /* background-color: #8b345a; */
+  /* opacity: 0.7; */
+  justify-content: space-between;
 }
 
 
+.leftBox {
+  /* flex: 1; */
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 12px; */
+  width: 120%;
+  height: 100%;
+  padding: 10px;
+  /* margin-top: 80px; */
+  /* position: relative; */
+  /* align-items: center; */
+  /* z-index: 4; */
+  /* background-color: #192ea3; */
+  /* opacity: 0.7; */
+  /* justify-content: center;
+    align-items: center; */
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
 
-  
-  .nav-button {
-    color: #666;
-    font-size: 24px;
-    cursor: pointer;
-    position: absolute;
-    z-index: 3;
-  }
-  
-  .nav-prev {
-    left: 0;
-  }
-  
-  .nav-next {
-    right: 0;
-  }
-  
-  /* .carousel-items {
+.rigthBox {
+
+  /* flex: 1; */
+  /* z-index: 4; */
+  width: 80%;
+  height: 100%;
+  background-color: aquamarine;
+}
+
+
+
+
+.nav-button {
+  color: #666;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  z-index: 3;
+}
+
+.nav-prev {
+  left: 0;
+}
+
+.nav-next {
+  right: 0;
+}
+
+/* .carousel-items {
     display: flex;
     gap: 12px;
     margin: 0 30px;
     overflow-x: auto;
     scrollbar-width: none;
   } */
-  
-  /* .carousel-items::-webkit-scrollbar {
+
+/* .carousel-items::-webkit-scrollbar {
     display: none;
   }
    */
-  .Boxmenu {
-    flex: 0 0 120px;
-    height: 140px;
-    background-color: #c13838;
-    border-radius: 20px;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    position: relative;
-  }
+.Boxmenu {
+  /* flex: 1; */
+  /* margin: 20px; */
+  min-width: 175px;
+  max-width: 175px;
+  height: 175px;
+  /* flex: 1 1 200px; */
+  /* ทำให้ขนาดยืดหยุ่น */
+  background-color: #c13838;
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  /* align-items: center; */
+  position: relative;
+  overflow: hidden;
+  gap: 8px;
+}
+
+.Box-button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  /* หรือกำหนดตาม layout */
+}
+
+div.Menu-name {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding:5px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 10px;
+  text-align: center;
+}
+
+.Menu-Image {
+  flex: 1;
+  display: flex;
+  position: absolute;
+  top: 35px;
+  left: 35px;     /* จัดรูปแนวตั้ง */
+}
+
+.Menu-Image img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+div.Menu-price {
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+}
+
+.order-button {
+  width: 100%;
+  min-width: 75px;
+  max-width: 75px;
+  background-color: #547616;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+  font-size: 14px;
+  text-transform: none;
+  text-align: center;
+  cursor: pointer;
+  /* ป้องกันไม่ให้ตัวอักษรเป็น CAPS */
+}
+
+.order-button:hover {
+  background-color: #405812;
+  color: white;
+}
+
 /* 
   
   .buttomBox{
@@ -184,7 +258,7 @@
 
 
 
-  /* .carousel-item.active {
+/* .carousel-item.active {
     background-color: #7da673;
   }
   
@@ -196,34 +270,33 @@
   }
   
    */
-  .imgmenu {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .Menu-name {
-    color: #333;
-    font-size: 12px;
-    margin-top: 70px;
-    text-align: center;
-  }
-  
+/* .imgmenu {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 16px;
+  cursor: pointer;
+} */
+
+/* .Menu-name {
+  color: #333;
+  font-size: 12px;
+  margin-top: 70px;
+  text-align: center;
+} */
 
 
 
 
-  .circle {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 70vw;
-    height: 70vw;
-    border-radius: 50%;
-    background-color: #000;
-    transform: translate(50%, 50%);
-    z-index: 1;
-  }
-  
+
+.circle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  background-color: #000;
+  transform: translate(50%, 50%);
+  z-index: 1;
+}
