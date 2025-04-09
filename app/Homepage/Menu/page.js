@@ -76,6 +76,7 @@ export default function page() {
                     {data.map((datamenu, index) => {
                         return (
                             <div key={datamenu.id || index} className="Boxmenu">
+                            
                                 <div className="Menu-name">{datamenu.nameENG}</div>
 
                                 <div className="Menu-Image"><img src={datamenu.image_url} alt={datamenu.name} /></div>
