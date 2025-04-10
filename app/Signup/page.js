@@ -92,7 +92,7 @@ export default function Signup() {
 
 
 
-  //-------------------------------------sentData----------------------------------------
+  //-------------------------------------sendData----------------------------------------
   const sendDataToBackend = async (e) => {
     // e.preventDefault()
     setError(null)

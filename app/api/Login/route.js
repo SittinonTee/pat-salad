@@ -17,7 +17,7 @@ export async function POST(request) {
     const user = Checkuser[0];
 
 
-    console.log("c + ",user)
+    console.log("c + ",user.user_id)
 
     const isPasswordCorrect = (password === user.password);
 
@@ -32,7 +32,7 @@ export async function POST(request) {
     return NextResponse.json({
       Sentstatus: true,
       message: "successful",
-      userId: user.id,
+      userId: user.user_id,
       username: user.username
     }, { status: 200 });
 

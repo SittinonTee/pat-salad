@@ -18,7 +18,7 @@ export default function page() {
 
 
 
-    const {Menumane, setMenuname, cart, setCart, addToCart} = useContext(DataContext);
+    const {cart, setCart, addToCart} = useContext(DataContext);
 
 
 

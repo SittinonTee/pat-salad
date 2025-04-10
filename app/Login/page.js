@@ -38,6 +38,9 @@ export default function page() {
     })
   }
 
+
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
@@ -57,8 +60,10 @@ export default function page() {
       console.log(result);
 
       if (result.Sentstatus === true) {
-        console.log(result.username)
-        router.push(`../Homepage?username=${result.username}`)
+        console.log("GoHomepage",result)
+  
+        router.push(`../Homepage?userId=${result.userId}&username=${result.username}`);
+
 
       }
 

@@ -33,11 +33,12 @@ export const DataContext = createContext();
 
 
 export default function navigationbar({ children }) {
+    const [error, setError] = useState(null)
   const pathname = usePathname();
 
   const isSaladPage = pathname.includes('/Homepage/Menu');
 
-  const [Menumane, setMenuname] = useState("Terr")
+  const [ user, setUser] = useState([])
   const [cart, setCart] = useState([]);
 
 
@@ -45,9 +46,10 @@ export default function navigationbar({ children }) {
   const addToCart = (menu) => {
     setCart(preCart => {
       const checkmenu = preCart.find(i => i.nameENG === menu.nameENG);
+      console.log("fgfffff : ",checkmenu)
       if (checkmenu) {
         return preCart.map(i => {
-          if (i.name === menu.name) {
+          if (i.nameENG === menu.nameENG) {
             return { ...i, quantity: i.quantity + 1 };
           }
           return i;
@@ -62,11 +64,12 @@ export default function navigationbar({ children }) {
 
   }
 
-  const handleIncrease = (index) => {
-    const newCart = [...cart];
-    newCart[index].quantity += 1;
-    setCart(newCart);
-  };
+  // const handleIncrease = (index) => {
+  //   console.log(index)
+  //   const newCart = [...cart];
+  //   newCart[index].quantity += 1;
+  //   setCart(newCart);
+  // };
 
   const handleDecrease = (index) => {
     const newCart = [...cart];
@@ -85,16 +88,59 @@ export default function navigationbar({ children }) {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const totalPrice = cart.reduce((sum, item) => sum + item.quantity * item.price, 0); // ต้องมี field price
 
-    alert(`คุณมี ${totalItems} รายการ\nยอดรวม: ${totalPrice.toLocaleString()} บาท`);
+    // alert(`คุณมี ${totalItems} รายการ\nยอดรวม: ${totalPrice.toLocaleString()} บาท`);
   };
 
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+
+
 
   useEffect(() => {
     console.log("Updated Cart:", cart);
   }, [cart]);
 
 
+
+
+
+
+
+  const AddToOrder  = async()=>{
+    const order_date = new Date().toISOString();
+    const Userid  = user.userId;
+
+    try {
+      const res  = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/AddToOrder`,{
+        method:'POST',
+        headers:{
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Userid,
+          order_date,
+          totalPrice,
+          cart
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        console.log('add order success:', data);
+        setCart([])
+      } else {
+        const errorData = await res.json();
+        setError(errorData.error || 'add order fail');
+      }
+
+
+    } catch (error) {
+      setError(err.message)
+    }
+  }
+
+
+
+  
   const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       right: -3,
@@ -138,7 +184,7 @@ export default function navigationbar({ children }) {
                   <Remove sx={{ fontSize: '16px' }} />
                 </IconButton>
                 <div>{Data.quantity}</div>
-                <IconButton onClick={(e) => { e.stopPropagation(); handleIncrease(index); }}>
+                <IconButton onClick={(e) => { e.stopPropagation(); addToCart(Data); }}>
                   <Add sx={{ fontSize: '16px' }} />
                 </IconButton>
               </div>
@@ -160,7 +206,7 @@ export default function navigationbar({ children }) {
           </div>
 
           {/* ✅ ปุ่มด้านล่าง */}
-          <div className="check-bill-button" onClick={() => handleCheckBill()}>
+          <div className="check-bill-button" onClick={() => {handleCheckBill();AddToOrder()}}>
             เช็คบิล
           </div>
 
@@ -173,6 +219,9 @@ export default function navigationbar({ children }) {
 
 
 
+
+
+
   return (
     <div>
       <div className={isSaladPage ? 'Saladpage' : 'homepage'}>
@@ -182,14 +231,14 @@ export default function navigationbar({ children }) {
           </div>
           <div className='Menubar'>
             <div className='boxitem'>
-              <h1>pp</h1>
+              <h1>{user.username}</h1>
             </div>
             <div className='boxitem'>
               <h1>Profile</h1>
             </div>
             <div className='boxitem'>
               <IconButton aria-label="cart" onClick={toggleDrawer(true)}>
-                <StyledBadge badgeContent={4} color="secondary">
+                <StyledBadge badgeContent={cart.length} color="secondary">
                   <ShoppingCartIcon />
                 </StyledBadge>
               </IconButton>
@@ -199,7 +248,7 @@ export default function navigationbar({ children }) {
             </div>
           </div>
         </div>
-        <DataContext.Provider value={{ Menumane, setMenuname, cart, setCart, addToCart }}>
+        <DataContext.Provider value={{ user, setUser, cart, setCart, addToCart }}>
           {children}
         </DataContext.Provider>
       </div>

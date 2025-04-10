@@ -19,10 +19,28 @@ import { red } from '@mui/material/colors';
 export default function Home() {
 
   const router = useRouter();  
-  const searchParams = useSearchParams()
-  const username = searchParams.get('username')
 
-  const { Menumane, setMenuname } = useContext(DataContext);
+
+const searchParams = useSearchParams();
+const userId = searchParams.get('userId');
+const username = searchParams.get('username');
+
+const {user,setUser} = useContext(DataContext);
+
+useEffect(() => {
+  setUser({ userId, username }); 
+}, [userId, username]);
+
+
+
+
+ 
+
+
+
+  
+
+
 
 
 
