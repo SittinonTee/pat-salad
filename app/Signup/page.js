@@ -266,7 +266,7 @@ export default function Signup() {
                 '&:hover': { backgroundColor: "#405812", color: "" } // เปลี่ยนสีเมื่อ hover
               }}
             >
-              Submit
+              Signup
             </Button>
 
             {/* </Stack> */}

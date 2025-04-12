@@ -62,8 +62,8 @@ export default function page() {
       if (result.Sentstatus === true) {
         console.log("GoHomepage",result)
   
-        router.push(`../Homepage?userId=${result.userId}&username=${result.username}`);
-
+        // router.push(`../Homepage?userId=${result.userId}&username=${result.username}`);
+        router.push('../Editmenu?type=Salad');
 
       }
 
@@ -137,8 +137,9 @@ export default function page() {
                 fontSize: "14px",
                 '&:hover': { backgroundColor: "#405812", color: "" } // เปลี่ยนสีเมื่อ hover
               }}
+
             >
-              Submit
+              Login
             </Button>
 
             {/* </Stack> */}
