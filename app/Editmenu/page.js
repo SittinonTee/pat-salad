@@ -42,6 +42,9 @@ export default function page() {
 
 
 
+
+
+
   useEffect(() => {
     if (!type) return;
     console.log("dddddddd")
@@ -58,6 +61,7 @@ export default function page() {
       if (!res.ok) throw new Error('Failed to fetch data');
       const DataMenu = await res.json();
       setData(DataMenu);
+      // setFile();
       console.log("Menu-Data = ", DataMenu);
     } catch (err) {
       setError(err.message);
@@ -191,6 +195,19 @@ export default function page() {
 
 
 
+
+
+
+
+
+
+  //-======================================================upload img====================================================================================
+  //   useEffect(() => {
+  //  console.log(file)
+  //   },[file])
+
+
+
   const handleModalAction = async (action) => {
 
     console.log(action)
@@ -217,14 +234,6 @@ export default function page() {
 
 
 
-
-
-
-  //-======================================================upload img====================================================================================
-  //   useEffect(() => {
-  //  console.log(file)
-  //   },[file])
-
   useEffect(() => {
     setPreview(null);
   }, [selectedMenu.image_url]);
@@ -247,44 +256,53 @@ export default function page() {
     // }
   };
 
-  // useEffect(() => {
-  //   console.log("SelectedMenu updated:", selectedMenu);
-  // }, [selectedMenu]);
+  useEffect(() => {
+    console.log("SelectedMenu updated:", selectedMenu);
+  }, [selectedMenu]);
 
 
   const handleUpload = async (check) => {
-    console.log("1")
-    if (!file) return;
-    console.log("2")
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('menuname', selectedMenu.nameENG);
-    formData.append('type', selectedMenu.type);
-
-    const res = await fetch('/api/Getmenu/upload', {
-      method: 'POST',
-      body: formData,
-    });
-
-    const result = await res.json();
-
-    if (res.ok) {
-      console.log("urlllllllll = ", result.url);
-      const updatedMenu = {
+    let updatedMenu;
+  
+    if (file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('menuname', selectedMenu.nameENG);
+      formData.append('type', selectedMenu.type);
+  
+      const res = await fetch('/api/Getmenu/upload', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      const result = await res.json();
+  
+      if (!res.ok) {
+        console.error("Upload failed:", result.message);
+        return;
+      }
+  
+      updatedMenu = {
         ...selectedMenu,
         image_url: result.url,
       };
-      console.log("Upload success: ", { check }, updatedMenu);
-
-
-      if (check === "Add") {
-        addmenu(updatedMenu);
-      } else {
-        editmenu(updatedMenu);
-      }
-
+    } else {
+   
+      updatedMenu = {
+        ...selectedMenu,
+        image_url: selectedMenu.image_url,
+      };
+    }
+  
+    console.log("Upload success: ", { check }, updatedMenu);
+  
+    if (check === "Add") {
+      addmenu(updatedMenu);
+    } else {
+      editmenu(updatedMenu);
     }
   };
+  
 
 
 
@@ -358,7 +376,9 @@ export default function page() {
         <div className='gpboxmenu'>
           {data.map((datamenu, index) => {
             return (
-              <div key={datamenu.id || index} className="Boxmenu" onClick={() => setSelectedMenu(datamenu)}>
+              <div key={datamenu.id || index} className="Boxmenu" onClick={() => {
+                setSelectedMenu(datamenu);
+              }}>
                 <div className="Menu-name">{datamenu.nameENG}</div>
                 <div className="Menu-Image"><img src={datamenu.image_url} alt={datamenu.name} /></div>
                 <div className="Menu-price">{datamenu.price}</div>
