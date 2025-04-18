@@ -24,11 +24,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+
 }
 
 
-.backbutton{
+.backbutton {
   color: black;
   font-size: 20px;
   margin-right: 10px;
@@ -162,11 +162,11 @@
 }
 
 .Buttomitem:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 12px 40px black;
+  transform: translateY(-5px);
+  box-shadow: 0px 12px 40px black;
   color: white;
   background-color: #598C4B;
- 
+
 
 }
 
@@ -182,10 +182,11 @@
   justify-content: center;
 }
 
-.icon{
+.icon {
   width: 60px;
   height: 60px;
 }
+
 .textContainer {
   width: 100%;
   height: 40%;
@@ -227,6 +228,12 @@
   border-color: red;
 }
 
+.container-menu{
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .menu-name .MuiTypography-root {
   font-size: 12px;
   font-weight: 500;
@@ -242,6 +249,8 @@
 .orderPrice {
   font-size: 14px;
   margin-right: 10px;
+  width: 45px;
+  text-align: center;
 }
 
 .Totalprice {
@@ -341,11 +350,11 @@
   width: 100%;
   padding: 20px;
   position: relative;
-  box-shadow: 0 4px 6px rgba(0, 0, 0,0.8);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
 }
 
 
-.err{
+.err {
   text-align: center;
   margin-bottom: 10px;
 }
@@ -377,30 +386,32 @@
 
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 
 .form-label {
   display: flex;
   align-items: center;
+  justify-content: start;
   font-weight: 500;
   color: #000000;
   background-color: #ffffff;
+
 }
 
-.form-label-icon {
+/* .form-label-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;      
-  height: 50px;
-}
+  width: 40px;
+  height: 40px;
+} */
 
 
 .icon {
   font-size: 20px;
-  color: #000000; 
+  color: #000000;
 }
 
 .form-input,
@@ -422,7 +433,7 @@
 }
 
 
-.order{
+.order {
   background-color: #f9fafb;
   padding: 10px;
   border-radius: 10px;
@@ -439,17 +450,16 @@
   align-items: center;
 }
 
-.order-icon {
+/* .order-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;      
+  width: 50px;
   height: 50px;
+} */
 
-}
 
-
-.order-item{
+.order-item {
   display: flex;
   justify-content: space-between;
   /* font-size: */
@@ -457,7 +467,7 @@
 
 }
 
-.order-item-price{
+.order-item-price {
   display: flex;
   justify-content: space-between;
 }
@@ -525,7 +535,7 @@
 
 
 
-.modalhistory{
+.modalhistory {
   /* background-color: white; */
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -546,12 +556,12 @@
 }
 
 
-.modalhistory.active{
+.modalhistory.active {
   display: flex;
 }
 
 
-.history-container{
+.history-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -561,7 +571,7 @@
   width: 100%;
   /* padding: 20px; */
   position: relative;
-  box-shadow: 0 4px 6px rgba(0, 0, 0,0.8);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
   max-height: 90vh;
   overflow-y: auto;
 }
@@ -654,7 +664,7 @@
   padding: 8px 0;
   border-bottom: 1px dashed #eee;
   display: flex;
-  justify-content: space-between;
+  
 }
 
 /* .order-item:last-child {
@@ -689,7 +699,7 @@
   font-size: 15px;
 }
 
-.summary{
+.summary {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
@@ -716,9 +726,8 @@
   background-color: #f9fafb;
   border: 2px solid #e5e7eb;
   z-index: 999;
-  padding: 50px;
   width: 80%;
-  height: auto;
+  height: 600px;
 }
 
 .modal-Profile.active {
@@ -726,12 +735,16 @@
   align-self: center;
   justify-self: center;
   border-radius: 20px;
+
 }
 
-.title1 {
+.title2 {
   width: 100%;
   height: auto;
-  color: black;
+  color: rgb(255, 255, 255);
+  background-color: #598C4B;
+  border-radius: 15px 15px 0px 0px;
+  padding: 30px 0px 30px 30px;
 }
 
 .close-btn {
@@ -742,15 +755,19 @@
   border: none;
   cursor: pointer;
   color: #111827;
+  transition: color 0.2s ease;
 }
 
+.close-btn:hover {
+  color: red;
+}
 
 .userdetail {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 30px;
   gap: 60px;
   width: 100%;
 }
@@ -761,12 +778,12 @@
   gap: 10px;
   margin-bottom: 15px;
   font-size: 20px;
-  width: 350px;
+  width: 400px;
   height: 100px;
 }
 
 .TF-input1 {
-  width: 80%;
+  width: 100%;
   padding: 20px;
 }
 
@@ -774,10 +791,18 @@
   font-size: 20px;
 }
 
-.SaveBtn {
-  background-color: #73a7fc;
+.btnLogout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.Logout {
+  background-color: #598C4B;
   width: 200px;
-  color: black;
+  color: rgb(255, 255, 255);
   font-weight: bold;
   font-size: 24px;
   padding: 10px 40px;
@@ -786,4 +811,8 @@
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: 0.3s ease;
+}
+.Logout:hover {
+  background-color: #4e7b3f;
+  color: #ffffff;
 }
