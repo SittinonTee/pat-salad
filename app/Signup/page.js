@@ -22,8 +22,6 @@ export default function Signup() {
   const [cfError, setCfError] = useState(null); // แก้ชื่อ state error ให้ไม่ชน
 
 
-
-
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -31,6 +29,10 @@ export default function Signup() {
   const handleMouseUpPassword = (event) => {
     event.preventDefault();
   };
+
+
+
+
 
   const [formData, setFormData] = useState({
     username: '',
@@ -58,10 +60,10 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.email || !formData.password || !formData.phone) {
-      setError('Please fill in all fields');
-      return;
-    }
+    // if (!formData.username || !formData.email || !formData.password || !formData.phone) {
+    //   setError('Please fill in all fields');
+    //   return;
+    // }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
@@ -93,12 +95,10 @@ export default function Signup() {
 
 
   //-------------------------------------sendData----------------------------------------
-  const sendDataToBackend = async (e) => {
+  // const sendDataToBackend = async (e) => {
+  const sendDataToBackend = async (formData) => {
     // e.preventDefault()
     setError(null)
-
-
-
 
     console.log('send Data to backend', formData);
 
@@ -114,9 +114,11 @@ export default function Signup() {
 
       const result = await res.json()
       // console.log(result)
+      setError(result.error);
 
-      if (result) {
-        console.log(result)
+      if (res.ok) {
+        setError(null)
+        // console.log(result)
         router.push('../Login')
 
       }
@@ -175,12 +177,17 @@ export default function Signup() {
             required
           />
 
-          <TextField className='TF-phone'
+          <TextField
+            className='TF-phone'
             label="Phone"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
             required
+            // inputProps={{
+            //   inputMode: 'numeric',
+            //   pattern: '[0-9]*'
+            // }}
           />
 
           <TextField className='TF-address'

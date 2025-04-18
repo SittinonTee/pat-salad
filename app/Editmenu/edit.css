@@ -1,13 +1,14 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* กำหนดฟอนต์หลัก */
 }
 
 .container {
     max-width: 100%;
     position: relative;
     overflow: hidden;
-    background-color: rgb(255, 255, 255);
+    background-color: #ffffff;
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -17,7 +18,7 @@
 .left {
     width: 60%;
     height: 100vh;
-    background: linear-gradient(to right, #474747 0%, #000000 100%);
+    background: linear-gradient(to right, #2e8b57 0%, #155724 100%);
     border-radius: 0px 40px 40px 0px;
     box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
 }
@@ -25,6 +26,7 @@
 .title {
     margin: 60px 0px 20px 60px;
     font-size: 32px;
+    color: #ffffff;
 }
 
 .Boxtitle {
@@ -40,41 +42,46 @@
 .box-item {
     width: 15%;
     height: 100%;
-    background-color: #DBE6D8;
-    color: #000000;
+    background-color: #e8f5e9;
+    color: #155724;
     text-align: center;
     border-radius: 20px;
     padding: 10px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .box-item:hover {
-    background-color: #91B491;
+    background-color: #4caf50;
     color: white;
+    transform: translateY(-3px);
 }
 
 .box-item.active {
-    background-color: #91B491;
-    /* หรือสีตามธีมคุณ */
+    background-color: #4caf50;
     color: white;
     font-weight: bold;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
 
 .gpboxmenu {
     display: flex;
     flex-wrap: wrap;
-    /* width: 100%; */
-    /* height: auto; */
-    justify-content: flex-start;
+        /* flex-direction: row; */
+    justify-content: center;
     align-items: center;
-    gap: 20px;
+    max-height: 100%;
+    /* align-content:center; */
+    margin: 40px 5px;
+    padding-top: 20px;
+    gap: 20px;  
+    overflow-y: auto;
 }
 
 .Boxmenu {
     width: 175px;
     height: 175px;
-    background: linear-gradient(135deg, #1a1a1a, #0d1d0a);
+    background: linear-gradient(135deg, #2e8b57, #155724);
     border-radius: 15px;
     padding: 12px;
     display: flex;
@@ -83,30 +90,31 @@
     overflow: hidden;
     gap: 8px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 40px 0px 20px 40px;
+    z-index: 10;
+    /* margin: 20px; */
+    /* margin: 40px 0px 20px 40px; */
 }
 
 .Boxmenu:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 20px rgba(76, 175, 80, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 div.Menu-name {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 6px 6px;
     border-radius: 8px;
     font-weight: 600;
     font-size: 10px;
     text-align: center;
-    color: #0d1d0a;
+    color: #155724;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 2;
     max-width: 100%;
     overflow: hidden;
-    /* text-overflow: ellipsis;
-    white-space: nowrap; */
 }
 
 .Menu-Image {
@@ -124,21 +132,23 @@ div.Menu-name {
     height: 100px;
     object-fit: contain;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
+    /* background-color: rgba(255, 255, 255, 0.3); */
     padding: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
     z-index: 1;
+    /* border: 2px solid #ffffff; */
 }
 
-div.Menu-price {
+.Menu-price {
     position: absolute;
-    left: 50px;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 5px;
     color: white;
     font-weight: bold;
     font-size: 16px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(46, 139, 87, 0.8);
     padding: 4px 8px;
     border-radius: 6px;
 }
@@ -149,26 +159,30 @@ div.Menu-price {
     width: 50%;
     height: 100vh;
     border-radius: 0px 40px 40px 0px;
+    background-color: #f8fdf8;
+    overflow-y: auto;
 }
 
 .titleright {
-    margin: 60px 0px 20px 60px;
+    margin: 20px 0px 20px 60px;
     font-size: 32px;
-    color: #000000;
+    color: #2e8b57;
 }
 
 .UserID {
     position: absolute;
     right: 30px;
     top: 30px;
-    background-color: #DBE6D8;
-    color: rgb(0, 0, 0);
+    background-color: #e8f5e9;
+    color: #155724;
     width: 10%;
     height: auto;
     padding: 10px;
     align-items: center;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #a5d6a7;
 }
 
 .Image {
@@ -177,68 +191,263 @@ div.Menu-price {
     justify-content: center;
     align-items: center;
     margin: 20px;
-
 }
 
 .Image img {
     width: 200px;
     height: 200px;
     object-fit: contain;
-    background-color: rgba(5, 5, 5, 0.1);
+    background-color: rgba(46, 139, 87, 0.05);
+    border-radius: 10px;
 }
 
 .ImagePreviewArea {
     width: 250px;
     height: 250px;
-    border: 2px dashed #ccc;
+    border: 2px dashed #a5d6a7;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     overflow: hidden;
-    background-color: #f9f9f9;
+    background-color: #f1f8e9;
     transition: border-color 0.3s;
     justify-self: center;
+    margin: 20px auto;
+}
+
+.ImagePreviewArea:hover {
+    border-color: #4caf50;
+    background-color: #e8f5e9;
 }
 
 .EditZone {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px;
+    padding: 20px;
     gap: 40px;
     width: 100%;
-
 }
 
 .TF-input {
     width: 90%;
 }
 
+
+
 .ButtonGroup {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    gap: 40px;
-    align-items: center;
-    margin: 60px 0px 20px 60px;
+    gap: 20px;
+    /* align-items: center; */
+    justify-content: center;
+    /* margin: 10px 0px 0px 0px; */
 }
 
-.SaveBtn {
-    background-color: #73a7fc;
-    width: 200px;
-    color: black;
+
+.Btn {
+    width: 150px;
+    color: white;
     font-weight: bold;
     font-size: 24px;
     padding: 10px 40px;
     border: none;
     border-radius: 20px;
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: 0.3s ease;
-}
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .DeleteBtn {
+    background-color: #f44336;
+  }
+  .DeleteBtn:hover {
+    background-color: #d32f2f;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
 
-.SaveBtn:hover {
-    background-color: #5e95f5;
+  .AddBtn {
+    background-color: #2196f3;
+  }
+  .AddBtn:hover {
+    background-color: #1976d2;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .SaveBtn {
+    background-color: #4caf50;
+  }
+  .SaveBtn:hover {
+    background-color: #2e8b57;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+
+
+
+
+
+
+/*--------------------------------------------------- modal------------------------------------ */
+
+
+
+  .modal-overlay {
+    position: fixed; /* กำหนดตำแหน่งแบบคงที่ไม่เลื่อนตามการ scroll */
+    top: 0; 
+    left: 0; 
+    width: 100%;
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    z-index: 1000; 
+    visibility: hidden; 
+    opacity: 0;
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s; 
+  }
+  
+  .modal-overlay.active {
+    visibility: visible; 
+    opacity: 1; 
+    transition-delay: 0s; 
+  }
+  
+
+
+  .modal-content {
+    background-color: white;
+    width: 90%; 
+    max-width: 500px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px; 
+    /* transform: scale(0.8);  */
+    opacity: 0; 
+    transition: transform 0.3s, opacity 0.3s; 
+  }
+  
+  .modal-overlay.active .modal-content {
+    /* transform: scale(1);  */
+    color: black;
+    opacity: 1;
+  }
+  
+  .modal-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px; 
+    margin-bottom: 15px; 
+  }
+  
+  .modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0; 
+    /* color: black; */
+  }
+  
+  .close-button {
+    background: none; 
+    border: none; 
+    font-size: 24px; 
+    cursor: pointer; 
+    color: #666; 
+  }
+  
+  .close-button:hover {
+    color: #000; /* เปลี่ยนสีเป็นดำเมื่อเมาส์ชี้ */
+  }
+  
+  .modal-body {
+    line-height: 1.6; 
+  }
+  
+  .modal-footer {
+    margin-top: 20px; 
+    padding-top: 15px; 
+    border-top: 1px solid #eee; 
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 10px; 
+  }
+  
+  .cancelBtn{
+    background-color: #95a5a6;
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    gap: 8px;
+  }
+  
+  .cancelBtn:hover {
+    background-color: #7f8c8d; 
+    
+  }
+  
+  .confirmBtn {
+    background-color: #3498db; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    gap: 8px;
+  }
+  
+  .confirmBtn:hover {
+    background-color: #2980b9;
+  }
+
+
+
+
+
+  .ImageChoose_ImageArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+
+
+  .clearBtn{
+    background-color: #2196f3;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+
+  .choose_image{
+    background-color: #2196f3;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-block;
+  }
+.err{
+    /* color: red; */
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
 }

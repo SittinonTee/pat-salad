@@ -22,9 +22,9 @@ export async function POST(request) {
 
 
     const [result] = await db.query(
-      `INSERT INTO user (username, first_name, last_name, phone, address, email, password) 
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [username, fname, lname, phone,  address ,email,  password ]
+      `INSERT INTO user (username, first_name, last_name, phone, address, email, password,type) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [username, fname, lname, phone,  address ,email,  password , "user" ]
     );
 
 
@@ -36,11 +36,11 @@ export async function POST(request) {
     //     fname,
     //     lname,
     //     phone,
-    //     address
+    //     address,
+    //     type
     //   },
     //   { status: 200 }
     // );
-
 
     return NextResponse.json(
         { success:true},{status:200}

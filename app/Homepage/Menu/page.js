@@ -4,6 +4,8 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import './menu.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+import { Typography } from '@mui/material';
+
 import { DataContext } from '../layout';
 
 // import {useSearchParams} from 'next/navigation';
@@ -20,30 +22,30 @@ export default function page() {
 
 
 
-    const { user, setUser, add_and_phone, setadd_and_phone, cart, setCart, addToCart, showModal, setShowModal, openModal, closeModal, totalPrice ,AddToOrder} = useContext(DataContext);
+    const { user, setUser, add_and_phone, setadd_and_phone, cart, setCart, addToCart, showModal, setShowModal, openModal, closeModal, totalPrice, AddToOrder, showModalhistory, setShowModalhistory, openModalhistory, closeModalhistory, ordershistory, setOrdershistory } = useContext(DataContext);
+    // const [ordershistory, setOrdershistory] = useState([]);
 
 
+    useEffect(() => {
+        const storedUser = sessionStorage.getItem("user");
+        if (!storedUser) {
+            //   router.push("/login");
+        } else {
+            //   console.log(JSON.parse(storedUser))
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser);
 
-  useEffect(() => {
-    const storedUser = sessionStorage.getItem("user");
-    if (!storedUser) {
-    //   router.push("/login");
-    } else {
-    //   console.log(JSON.parse(storedUser))
-      const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
-  
-      setadd_and_phone({
-        address: parsedUser.address,
-        phone: parsedUser.phone
-      });
-    }
-  }, []);
+            setadd_and_phone({
+                address: parsedUser.address || '',
+                phone: parsedUser.phone || ''
+            });
+        }
+    }, []);
 
 
-useEffect(() => {
-    console.log("checkadd", add_and_phone)
-}, [add_and_phone]);
+    useEffect(() => {
+        console.log("checkadd", add_and_phone)
+    }, [add_and_phone]);
 
 
 
@@ -55,6 +57,12 @@ useEffect(() => {
         setType(getType);
     }, [searchParams]);
 
+
+
+
+    useEffect(() => {
+        console.log("type", type)
+    }, [type]);
 
     useEffect(() => {
         if (!type) return;
@@ -84,6 +92,17 @@ useEffect(() => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     //-----------------------------------------------------model-----------------------------------------------------
 
 
@@ -105,6 +124,16 @@ useEffect(() => {
 
 
 
+
+
+
+
+
+
+
+
+
+
     return (
         <div className="container">
 
@@ -123,11 +152,36 @@ useEffect(() => {
 
 
                 <div className="GroupBoxmenu">
-                    <div className="BoxMenu" onClick={() => router.push('/Homepage/Menu?type=salad')}>Salad</div>
-                    <div className="BoxMenu" onClick={() => router.push('/Homepage/Menu?type=wrap')}>Wrap</div>
-                    <div className="BoxMenu" onClick={() => router.push('/Homepage/Menu?type=fried')}>Fried</div>
-                    <div className="BoxMenu" onClick={() => router.push('/Homepage/Menu?type=drink')}>Drink</div>
-                    <div className="BoxMenu" onClick={() => openModal()}>Drink</div>
+                    <div
+                        className={`BoxMenu ${type === 'salad' ? 'active' : ''}`}
+                        onClick={() => router.push('/Homepage/Menu?type=salad')}
+                    >
+                        Salad
+                    </div>
+
+                    <div
+                        className={`BoxMenu ${type === 'wrap' ? 'active' : ''}`}
+                        onClick={() => router.push('/Homepage/Menu?type=wrap')}
+                    >
+                        Wrap
+                    </div>
+
+                    <div
+                        className={`BoxMenu ${type === 'fried' ? 'active' : ''}`}
+                        onClick={() => router.push('/Homepage/Menu?type=fried')}
+                    >
+                        Fried
+                    </div>
+
+                    <div
+                        className={`BoxMenu ${type === 'drink' ? 'active' : ''}`}
+                        onClick={() => router.push('/Homepage/Menu?type=drink')}
+                    >
+                        Drink
+                    </div>
+
+                    {/* <div className="BoxMenu" onClick={() => openModalhistory()}>Drink</div>
+                    <div className="BoxMenu" onClick={() => fetchOrderHistory()}>Drink</div> */}
                 </div>
             </div>
 
@@ -135,7 +189,7 @@ useEffect(() => {
                 <div className='leftBox'>
                     {data.map((datamenu, index) => {
                         return (
-                            <div className="Boxmenu" key={datamenu.id || index}>
+                            <div className="Boxmenushow" key={datamenu.id || index}>
                                 <div className="menuBoximg">
                                     <img src={datamenu.image_url} alt={datamenu.name} className="menu-image" />
                                 </div>
@@ -157,99 +211,14 @@ useEffect(() => {
 
 
             {/* <div id="modal" className="modal-overlay"> */}
-            <div id="modal" className={`modal-overlay ${showModal ? 'active' : ''}`}>
-                <div className="modal-container">
-                    <button className="modal-close" onClick={closeModal}>&times;</button>
-
-                    <h1 className="modal-title">ข้อมูลการจัดส่ง</h1>
-
-
-                    <div className="form-group">
-                        <label className="form-label">
-                            <div className="form-label-icon">
-                                <i className="fas fa-map-marker-alt icon" ></i>
-
-
-                            </div>
-                            ที่อยู่จัดส่ง
-                        </label>
-                        <textarea
-                            id="address"
-                            className="form-textarea"
-                            rows="3"
-                            placeholder="กรุณากรอกที่อยู่"
-                            value={add_and_phone.address || user.address || ''}
-                            required
-                            onChange={(e) =>
-                                setadd_and_phone((prev) => ({ ...prev, address: e.target.value }))
-                              }
-                        ></textarea>
-                    </div>
-
-
-                    <div className="form-group">
-                        <label className="form-label">
-                            <div className="form-label-icon">
-                                <i className="fas fa-phone-alt icon"></i>
-
-                            </div>
-                            เบอร์โทรศัพท์
-                        </label>
-                        <input
-                            id="phone"
-                            type="tel"
-                            className="form-input"
-                            placeholder="กรุณากรอกเบอร์โทรศัพท์"
-                            value={add_and_phone.phone || user.phone || ''}
-                            required
-                            onChange={(e) =>
-                                setadd_and_phone((prev) => ({ ...prev, phone: e.target.value }))
-                              }
-                        />
-                    </div>
-
-                    <div className="order">
-                        <h3 className="order-title">
-                            <span className="order-icon">
-                            <i className="fas fa-list icon"></i>
-                            </span>
-                            รายการอาหารที่สั่ง
-                        </h3>
 
 
 
-                        {cart.map((Data, index) => (
-                            <div className="order-item" key={Data.menu_id}>
-                                <span>{Data.nameENG} x{Data.quantity}</span>
-                                <span className="order-item-price">
-                                    <span>{Data.quantity}</span>
-                                    {/* <div></div> */}
-                                    <span>{Data.price * Data.quantity} บาท</span>
-                                </span>
-                            </div>
-                        ))}
-
-
-                        <div className="order-total">
-                            <span>ยอดรวมทั้งสิ้น:</span>
-                            <span>{totalPrice.toFixed(2)}</span>
-                        </div>
-                    </div>
-
-                  
-                    <div className="button-container">
-                        <button className="btn btn-cancel" onClick={closeModal}>
-                        <h3>ยกเลิก</h3>
-                        </button>
-                        <button className="btn btn-confirm" onClick={() => {AddToOrder();closeModal()}}>
-                            <h3>ยืนยันคำสั่งซื้อ</h3>
-                        </button>
-                    </div>
-                </div>
 
 
 
-            </div>
+
+
 
 
         </div>

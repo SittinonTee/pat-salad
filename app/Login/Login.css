@@ -55,9 +55,9 @@
 
 }
 
-div.noaccount {
+/* .noaccount {
   display: flex;
-}
+} */
 
 a.Noaccount {
   color: dimgray;
@@ -81,7 +81,7 @@ p.line {
   text-align: center;
 }
 
-div.err {
+.err {
   height: 50px;
   text-align: center;
 }

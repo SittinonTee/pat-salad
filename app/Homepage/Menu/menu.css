@@ -56,7 +56,6 @@
 .BoxMenu {
   background-color: #DBE6D8;
   color: black;
-  /* justify-items: center; */
   font-weight: bold;
   text-align: center;
   padding: 10px 20px;
@@ -72,7 +71,11 @@
   background-color: #598C4B;
   color: white;
 }
-
+.BoxMenu.active {
+  background-color: #598C4B;
+  color: white;
+  box-shadow: 0 10px 25px rgba(0, 150, 0, 0.2);
+}
 /* .div:has(.BoxMenu:hover) .BoxMenu:not(:hover) {
   filter: blur(2px);
   opacity: 0.4;
@@ -167,6 +170,7 @@
   align-items: center;
   gap: 40px;
   overflow-y: auto;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .leftBox::-webkit-scrollbar {
@@ -194,7 +198,7 @@
 
 
 
-.circle {
+/* .circle {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -204,7 +208,7 @@
   background-color: #000;
   transform: translate(50%, 50%);
   z-index: 1;
-}
+} */
 
 
 
@@ -213,11 +217,11 @@
 
 
 
-.Boxmenu{
+.Boxmenushow{
   background-color: #ffffff;
   border-radius: 12px;
   /* overflow: visible; */
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
   transition: all transform 0.9s;
   cursor: pointer;
@@ -227,10 +231,12 @@
   margin: 75px 10px 20px 10px;
 }
 
-.Boxmenu:hover {
+.Boxmenushow:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
 }
+
+
 
 .menuBoximg{
   width: 140px;
@@ -325,201 +331,5 @@
 
 
 
-
-
-
-/* ----------------------------------------------modal order */
-
-
-.modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
-  padding: 1px;
-}
-
-.modal-overlay.active {
-  display: flex;
-}
-
-.modal-container {
-  background-color: #ffffff;
-  border-radius: 30px;
-  max-width: 60%;
-  width: 100%;
-  padding: 20px;
-  position: relative;
-  box-shadow: 0 4px 6px rgba(0, 0, 0,0.8);
-}
-
-
-.modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  color: #6b7280;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.modal-close:hover {
-  color: #1f2937;
-}
-
-
-.modal-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #4a9b61;
-}
-
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-
-.form-label {
-  display: flex;
-  align-items: center;
-  font-weight: 500;
-  color: #000000;
-  background-color: #ffffff;
-}
-
-.form-label-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;      
-  height: 50px;
-}
-
-
-.icon {
-  font-size: 20px;
-  color: #000000; 
-}
-
-.form-input,
-.form-textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  box-sizing: border-box;
-  background-color: #ffffff;
-  color: #000000;
-}
-
-.form-input:focus,
-.form-textarea:focus {
-  outline: none;
-  border-color: #4a9b61;
-  box-shadow: 0 0 0 2px rgba(74, 155, 97, 0.2);
-}
-
-
-.order{
-  background-color: #f9fafb;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  color: #000000;
-  max-height: 350px;
-  overflow-y: auto;
-}
-
-.order-title {
-  font-weight: 500;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.order-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;      
-  height: 50px;
-
-}
-
-
-.order-item{
-  display: flex;
-  justify-content: space-between;
-  /* font-size: */
-  margin-bottom: 10px;
-
-}
-
-.order-item-price{
-  display: flex;
-  justify-content: space-between;
-}
-
-
-.order-total {
-  border-top: 1px solid #e5e7eb;
-  padding-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  font-weight: 700;
-  margin-top: 10px;
-}
-
-
-.button-container {
-  display: flex;
-  gap: 10px;
-}
-
-
-.btn {
-  flex: 1;
-  padding: 10px 20px;
-  border-radius: 30px;
-  font-weight: 500;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-
-.btn-cancel {
-  border: 1px solid #d1d5db;
-  background-color: transparent;
-  color: #374151;
-}
-
-.btn-cancel:hover {
-  background-color: #f9fafb;
-}
-
-.btn-confirm {
-  background-color: #598C4B;
-  color: white;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-confirm:hover {
-  opacity: 0.9;
-}
 
 

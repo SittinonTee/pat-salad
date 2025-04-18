@@ -28,6 +28,12 @@
 }
 
 
+.backbutton{
+  color: black;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
 
 .Saladpage {
   /* background-image: url('/img/bg-Home.png'); */
@@ -50,7 +56,7 @@
 
 
 
-.TopBox {
+.TopBoxHomepage {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,8 +64,28 @@
   /* background-color: brown; */
   padding: 20px;
   width: 100%;
+  /* background-color: #a30b0b; */
+  z-index: 10;
 
 }
+
+
+
+.TopBoxSaladpage {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: null; */
+  /* background-color: brown; */
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* background-color: #a30b0b; */
+  z-index: 10;
+
+}
+
+
 
 .Logo {
   display: flex;
@@ -240,6 +266,7 @@
 
 /* ปุ่มสไตล์เหมือนปุ่ม */
 .check-bill-button {
+  width: 100%;
   background-color: #1976d2;
   color: white;
   padding: 10px 20px;
@@ -280,3 +307,483 @@
 
 
 
+
+
+
+/* ----------------------------------------------modal order */
+
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 30px;
+  max-width: 60%;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0,0.8);
+}
+
+
+.err{
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #6b7280;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #1f2937;
+}
+
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #4a9b61;
+}
+
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+
+.form-label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.form-label-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;      
+  height: 50px;
+}
+
+
+.icon {
+  font-size: 20px;
+  color: #000000; 
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #4a9b61;
+  box-shadow: 0 0 0 2px rgba(74, 155, 97, 0.2);
+}
+
+
+.order{
+  background-color: #f9fafb;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: #000000;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.order-title {
+  font-weight: 500;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.order-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;      
+  height: 50px;
+
+}
+
+
+.order-item{
+  display: flex;
+  justify-content: space-between;
+  /* font-size: */
+  margin-bottom: 10px;
+
+}
+
+.order-item-price{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.order-total {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
+
+.btn {
+  flex: 1;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+
+.btn-cancel {
+  border: 1px solid #d1d5db;
+  background-color: transparent;
+  color: #374151;
+}
+
+.btn-cancel:hover {
+  background-color: #f9fafb;
+}
+
+.btn-confirm {
+  background-color: #598C4B;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-confirm:hover {
+  opacity: 0.9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modalhistory{
+  /* background-color: white; */
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  /* overflow: hidden; */
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  /* padding: 1px; */
+  flex-direction: column;
+}
+
+
+.modalhistory.active{
+  display: flex;
+}
+
+
+.history-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 30px;
+  max-width: 60%;
+  width: 100%;
+  /* padding: 20px; */
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0,0.8);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+
+
+.history-header {
+  background-color: #598C4B;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.history-content {
+  padding: 15px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+
+
+.history-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.history-content::-webkit-scrollbar-thumb {
+  background-color: rgba(74, 155, 97, 0.5);
+  border-radius: 10px;
+}
+
+.history-content::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.bill-item {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  border: 1px solid #a7a7a7;
+}
+
+.bill-header {
+  background-color: #e8f5e9;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.bill-date {
+  font-weight: bold;
+  color: #333;
+}
+
+.bill-number {
+  color: #666;
+  font-size: 14px;
+}
+
+.bill-content {
+  padding: 15px;
+}
+
+.order-items {
+  margin-bottom: 15px;
+}
+
+.order-item {
+  padding: 8px 0;
+  border-bottom: 1px dashed #eee;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .order-item:last-child {
+  border-bottom: none;
+} */
+
+/* .item-name {
+  flex-grow: 1;
+} */
+
+.item-name strong {
+  display: block;
+  margin-bottom: 3px;
+  color: black;
+}
+
+.item-desc {
+  font-size: 13px;
+  color: #666;
+}
+
+.item-price {
+  font-weight: bold;
+  min-width: 70px;
+  color: #4CAF50;
+  /* text-align: right; */
+}
+
+.bill-summary {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 12px;
+  font-size: 15px;
+}
+
+.summary{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #4CAF50;
+  margin-top: 5px;
+}
+
+
+
+
+
+
+
+
+.modal-Profile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f9fafb;
+  border: 2px solid #e5e7eb;
+  z-index: 999;
+  padding: 50px;
+  width: 80%;
+  height: auto;
+}
+
+.modal-Profile.active {
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  border-radius: 20px;
+}
+
+.title1 {
+  width: 100%;
+  height: auto;
+  color: black;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #111827;
+}
+
+
+.userdetail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 60px;
+  width: 100%;
+}
+
+.field-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  width: 350px;
+  height: 100px;
+}
+
+.TF-input1 {
+  width: 80%;
+  padding: 20px;
+}
+
+.TF-input1 input {
+  font-size: 20px;
+}
+
+.SaveBtn {
+  background-color: #73a7fc;
+  width: 200px;
+  color: black;
+  font-weight: bold;
+  font-size: 24px;
+  padding: 10px 40px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.3s ease;
+}

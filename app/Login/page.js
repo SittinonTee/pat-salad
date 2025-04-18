@@ -13,16 +13,17 @@ export default function page() {
   const router = useRouter();
 
 
-
+  //--------------------------------------------------------showpassword--------------------------------
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
   const handleMouseUpPassword = (event) => {
     event.preventDefault();
   };
+  //----------------------------------------------------------------------------------------
+
 
   const [formData, setFormData] = useState({
     username: '',
@@ -39,11 +40,19 @@ export default function page() {
   }
 
 
+  //--------------------------------------------------------handleSubmit--------------------------------
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setError(null)
+    // setError(null)
+
+
+
+    if (!formData.username || !formData.password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
 
 
     console.log(formData)
@@ -58,24 +67,37 @@ export default function page() {
 
       const result = await res.json()
       console.log(result);
+      // console.log(result.error);
+      setError(result.error);
 
-      if (result.Sentstatus === true) {
-        console.log("GoHomepage",result)
-  
-        // router.push(`../Homepage?userId=${result.userId}&username=${result.username}`);
-        router.push('../Editmenu?type=Salad');
+
+      if (res.ok) {
+        setError(null)
+        // console.log(result.type === "user");
+        if (result.type === "user") {
+          console.log("GoHomepage", result)
+
+
+          sessionStorage.setItem("user", JSON.stringify(result));
+          router.push("../Homepage");
+          // router.push(`../Homepage?userId=${result.userId}&username=${result.username}`);
+        } else {
+          router.push('../Editmenu');
+        }
 
       }
-
-
-
-
-
-
     } catch (err) {
       setError(err.message)
     }
   }
+
+
+
+
+
+
+
+
 
   return (
     <div className='Loginpage'>
@@ -86,13 +108,13 @@ export default function page() {
         <form onSubmit={handleSubmit} className='Boxitem'>
           {/* <Stack spacing={2}> */}
 
-          <div></div><div></div>
+          <div></div><div></div><div></div><div></div>
           <TextField className='TF-User'
             label="Username"
             name="username"
             value={formData.username}
             onChange={handleChange}
-            required
+          // required
           />
           <TextField
             className='TF-password'
@@ -101,7 +123,7 @@ export default function page() {
             type={showPassword ? 'text' : 'password'}
             value={formData.password}
             onChange={handleChange}
-            required
+            // required
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -134,8 +156,8 @@ export default function page() {
                 borderRadius: "15px",
                 padding: "15px",
                 color: "white",
-                fontSize: "14px",
-                '&:hover': { backgroundColor: "#405812", color: "" } // เปลี่ยนสีเมื่อ hover
+                fontSize: "20px",
+                '&:hover': { backgroundColor: "#405812", color: "" }
               }}
 
             >
@@ -146,7 +168,7 @@ export default function page() {
 
             <p className='line'>________________________</p>
             <div className='noaccout'>
-              <a className='Noaccount'>Don't have an Accont?</a> <a href={`../Signup`} className="signup">signup</a>
+              <a className='Noaccount'>Don't have an Accont?</a> <a href={`../Signup`} className="signup">Signup</a>
             </div>
           </div>
         </form>

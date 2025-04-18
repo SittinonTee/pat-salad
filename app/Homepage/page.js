@@ -31,7 +31,7 @@ export default function Home() {
   // const username = searchParams.get('username');
 
 
-  const { user, setUser ,add_and_phone,setadd_and_phone } = useContext(DataContext);
+  const { user, setUser, add_and_phone, setadd_and_phone } = useContext(DataContext);
 
 
   useEffect(() => {
@@ -39,17 +39,17 @@ export default function Home() {
     if (!storedUser) {
       router.push("/login");
     } else {
-      console.log(JSON.parse(storedUser))
+      console.log("Get user", JSON.parse(storedUser))
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
-  
+
       setadd_and_phone({
-        address: parsedUser.address,
-        phone: parsedUser.phone
+        address: parsedUser.address || '',
+        phone: parsedUser.phone || ''
       });
     }
   }, []);
-  
+
 
 
   useEffect(() => {
@@ -78,14 +78,15 @@ export default function Home() {
     <div className='test'>
 
 
+
       <div ></div>
 
       <div className='buttomBox'>
         <div className='Buttomitem'>
           <div className='imageContainer'>
-            <img src='/salad.png' alt='icon' className='icon'/>
+            <img src='/salad.png' alt='icon' className='icon' />
           </div>
-          <div className='textContainer' onClick={() => router.push('/Homepage/Menu?type=Salad')}>
+          <div className='textContainer' onClick={() => router.push('/Homepage/Menu?type=salad')}>
             <h1>Salad</h1>
           </div>
         </div>
@@ -99,24 +100,22 @@ export default function Home() {
           </div>
         </div>
         <div className='Buttomitem'>
-          <div className='imageContainer'>
+          <div className='imageContainer' >
             <img src='/fried.png' alt='icon' className='icon' />
           </div>
-          <div className='textContainer'>
+          <div className='textContainer' onClick={() => router.push('/Homepage/Menu?type=fried')}>
             <h1>Fried</h1>
           </div>
         </div>
         <div className='Buttomitem'>
           <div className='imageContainer'>
-            <img src='/path/to/icon2.png' alt='icon' className='icon' />
+            <img src='/drink.png' alt='icon' className='icon' />
           </div>
-          <div className='textContainer'>
+          <div className='textContainer' onClick={() => router.push('/Homepage/Menu?type=drink')}>
             <h1>Drink</h1>
           </div>
         </div>
       </div>
-
-
     </div>
   );
 }

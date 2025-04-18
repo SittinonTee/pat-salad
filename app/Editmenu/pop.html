@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"> <!-- กำหนดรูปแบบอักขระเป็น UTF-8 รองรับภาษาไทย -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ปรับขนาดให้แสดงผลดีบนมือถือ -->
+  <title>Modal Popup Example</title> <!-- ชื่อแท็บของเว็บเพจ -->
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* กำหนดฟอนต์หลัก */
+      margin: 0; /* ลบระยะขอบของ body */
+      padding: 20px; /* กำหนดระยะห่างภายใน body */
+    }
+    
+    .btn {
+      background-color: #e74c3c; /* สีพื้นหลังปุ่มสีแดง */
+      color: white; /* สีตัวอักษรขาว */
+      border: none; /* ไม่มีเส้นขอบ */
+      padding: 10px 20px; /* ระยะห่างภายในปุ่ม (บน-ล่าง, ซ้าย-ขวา) */
+      border-radius: 4px; /* มุมโค้งของปุ่ม */
+      cursor: pointer; /* เปลี่ยนเคอร์เซอร์เป็นรูปมือเมื่อชี้ */
+      font-size: 16px; /* ขนาดตัวอักษร */
+      display: flex; /* จัดการแสดงผลแบบ flexible */
+      align-items: center; /* จัดให้เนื้อหาอยู่กึ่งกลางแนวตั้ง */
+      gap: 8px; /* ระยะห่างระหว่างองค์ประกอบภายในปุ่ม */
+    }
+    
+    .btn:hover {
+      background-color: #c0392b; /* เปลี่ยนสีพื้นหลังเมื่อเมาส์ชี้ (สีแดงเข้มขึ้น) */
+    }
+    
+    .modal-overlay {
+      position: fixed; /* กำหนดตำแหน่งแบบคงที่ไม่เลื่อนตามการ scroll */
+      top: 0; /* ชิดขอบบนของหน้าจอ */
+      left: 0; /* ชิดขอบซ้ายของหน้าจอ */
+      width: 100%; /* กินพื้นที่กว้างเต็มหน้าจอ */
+      height: 100%; /* กินพื้นที่สูงเต็มหน้าจอ */
+      background-color: rgba(0, 0, 0, 0.5); /* พื้นหลังสีดำโปร่งใส 50% */
+      display: flex; /* จัดการแสดงผลแบบ flexible */
+      justify-content: center; /* จัดให้เนื้อหาอยู่กึ่งกลางแนวนอน */
+      align-items: center; /* จัดให้เนื้อหาอยู่กึ่งกลางแนวตั้ง */
+      z-index: 1000; /* กำหนดลำดับชั้นให้อยู่ด้านหน้าสุด */
+      visibility: hidden; /* ซ่อนไว้ไม่ให้มองเห็น */
+      opacity: 0; /* กำหนดความโปร่งใสเป็น 0 (มองไม่เห็น) */
+      transition: visibility 0s linear 0.25s, opacity 0.25s 0s; /* กำหนด animation การเปลี่ยนแปลง */
+    }
+    
+    .modal-overlay.active {
+      visibility: visible; /* แสดงให้มองเห็น เมื่อมีคลาส active */
+      opacity: 1; /* กำหนดความโปร่งใสเป็น 1 (มองเห็นชัดเจน) */
+      transition-delay: 0s; /* ไม่มีการหน่วงเวลา */
+    }
+    
+    .modal-content {
+      background-color: white; /* พื้นหลังสีขาว */
+      width: 90%; /* กว้าง 90% ของ container */
+      max-width: 500px; /* กว้างสุดไม่เกิน 500px */
+      border-radius: 8px; /* มุมโค้ง */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* เงาทำให้ดูลอย */
+      padding: 20px; /* ระยะห่างภายใน */
+      transform: scale(0.8); /* ย่อขนาดเหลือ 80% */
+      opacity: 0; /* ความโปร่งใสเป็น 0 (มองไม่เห็น) */
+      transition: transform 0.3s, opacity 0.3s; /* กำหนด animation การเปลี่ยนแปลง */
+    }
+    
+    .modal-overlay.active .modal-content {
+      transform: scale(1); /* ขยายเป็นขนาดเต็ม 100% เมื่อแสดง */
+      opacity: 1; /* ความโปร่งใสเป็น 1 (มองเห็นชัดเจน) */
+    }
+    
+    .modal-header {
+      display: flex; /* จัดการแสดงผลแบบ flexible */
+      justify-content: space-between; /* กระจายองค์ประกอบให้อยู่ห่างกันที่สุด */
+      align-items: center; /* จัดให้เนื้อหาอยู่กึ่งกลางแนวตั้ง */
+      border-bottom: 1px solid #eee; /* เส้นคั่นด้านล่าง */
+      padding-bottom: 15px; /* ระยะห่างด้านล่าง */
+      margin-bottom: 15px; /* ระยะขอบด้านล่าง */
+    }
+    
+    .modal-title {
+      font-size: 20px; /* ขนาดตัวอักษร */
+      font-weight: bold; /* ตัวหนา */
+      margin: 0; /* ไม่มีระยะขอบ */
+    }
+    
+    .close-button {
+      background: none; /* ไม่มีพื้นหลัง */
+      border: none; /* ไม่มีเส้นขอบ */
+      font-size: 24px; /* ขนาดตัวอักษร */
+      cursor: pointer; /* เปลี่ยนเคอร์เซอร์เป็นรูปมือเมื่อชี้ */
+      color: #666; /* สีตัวอักษรเทา */
+    }
+    
+    .close-button:hover {
+      color: #000; /* เปลี่ยนสีเป็นดำเมื่อเมาส์ชี้ */
+    }
+    
+    .modal-body {
+      line-height: 1.6; /* ความสูงของบรรทัด */
+    }
+    
+    .modal-footer {
+      margin-top: 20px; /* ระยะขอบด้านบน */
+      padding-top: 15px; /* ระยะห่างด้านบน */
+      border-top: 1px solid #eee; /* เส้นคั่นด้านบน */
+      display: flex; /* จัดการแสดงผลแบบ flexible */
+      justify-content: flex-end; /* จัดองค์ประกอบให้อยู่ด้านขวา */
+      gap: 10px; /* ระยะห่างระหว่างปุ่ม */
+    }
+    
+    .btn-secondary {
+      background-color: #95a5a6; /* สีพื้นหลังปุ่มรอง (สีเทา) */
+    }
+    
+    .btn-secondary:hover {
+      background-color: #7f8c8d; /* เปลี่ยนสีเมื่อเมาส์ชี้ (สีเทาเข้มขึ้น) */
+    }
+    
+    .btn-primary {
+      background-color: #3498db; /* สีพื้นหลังปุ่มหลัก (สีฟ้า) */
+    }
+    
+    .btn-primary:hover {
+      background-color: #2980b9; /* เปลี่ยนสีเมื่อเมาส์ชี้ (สีฟ้าเข้มขึ้น) */
+    }
+  </style>
+</head>
+<body>
+  <h1>ตัวอย่าง Modal Popup</h1> <!-- หัวข้อหลักของหน้า -->
+  <p>คลิกที่ปุ่มด้านล่างเพื่อเปิด Modal</p> <!-- คำอธิบายการใช้งาน -->
+  
+  <!-- ปุ่มที่ใช้เปิด Modal -->
+  <button id="deleteBtn" class="btn">
+    <span>ลบ</span>
+  </button>
+  
+  <!-- โครงสร้างของ Modal -->
+  <div id="modal" class="modal-overlay"> <!-- พื้นหลังสีทึบของ Modal -->
+    <div class="modal-content"> <!-- กล่องเนื้อหาของ Modal -->
+      <div class="modal-header"> <!-- ส่วนหัวของ Modal -->
+        <h2 class="modal-title">ยืนยันการลบ</h2> <!-- หัวข้อของ Modal -->
+        <button class="close-button" id="closeBtn">&times;</button> <!-- ปุ่มปิด (เครื่องหมาย X) -->
+      </div>
+      <div class="modal-body"> <!-- ส่วนเนื้อหาของ Modal -->
+        <p>คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้? การกระทำนี้ไม่สามารถย้อนกลับได้</p>
+      </div>
+      <div class="modal-footer"> <!-- ส่วนท้ายของ Modal ที่มีปุ่มต่างๆ -->
+        <button class="btn btn-secondary" id="cancelBtn">ยกเลิก</button> <!-- ปุ่มยกเลิก -->
+        <button class="btn btn-primary" id="confirmBtn">ยืนยัน</button> <!-- ปุ่มยืนยัน -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // เลือก Elements โดยใช้ ID
+    const deleteBtn = document.getElementById('deleteBtn'); // ปุ่มลบที่จะใช้เปิด Modal
+    const modal = document.getElementById('modal'); // Modal โดยรวม
+    const closeBtn = document.getElementById('closeBtn'); // ปุ่มปิด X ที่มุมบนขวา
+    const cancelBtn = document.getElementById('cancelBtn'); // ปุ่มยกเลิกที่ส่วนล่าง
+    const confirmBtn = document.getElementById('confirmBtn'); // ปุ่มยืนยันที่ส่วนล่าง
+    
+    // เปิด Modal โดยการเพิ่มคลาส active เมื่อคลิกที่ปุ่มลบ
+    deleteBtn.addEventListener('click', () => {
+      modal.classList.add('active'); // เพิ่มคลาส active ทำให้ Modal แสดง
+    });
+    
+    // ฟังก์ชันปิด Modal โดยการลบคลาส active
+    function closeModal() {
+      modal.classList.remove('active'); // ลบคลาส active ทำให้ Modal หายไป
+    }
+    
+    // เพิ่ม Event Listener ให้กับปุ่มปิดและปุ่มยกเลิก
+    closeBtn.addEventListener('click', closeModal); // เมื่อคลิกปุ่ม X ให้ปิด Modal
+    cancelBtn.addEventListener('click', closeModal); // เมื่อคลิกปุ่มยกเลิกให้ปิด Modal
+    confirmBtn.addEventListener('click', () => {
+      alert('ลบรายการเรียบร้อยแล้ว!'); // แสดงข้อความแจ้งเตือน
+      closeModal(); // จากนั้นปิด Modal
+    });
+    
+    // ปิด Modal เมื่อคลิกที่พื้นหลังสีทึบ (นอกกล่อง Modal)
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) { // ตรวจสอบว่าคลิกที่ background จริงๆ ไม่ใช่ส่วนเนื้อหา
+        closeModal(); // ถ้าใช่ ให้ปิด Modal
+      }
+    });
+    
+    // ปิด Modal เมื่อกดปุ่ม Escape บนคีย์บอร์ด
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('active')) { // ตรวจสอบว่ากดปุ่ม Escape และ Modal กำลังแสดงอยู่
+        closeModal(); // ถ้าใช่ ให้ปิด Modal
+      }
+    });
+  </script>
+</body>
+</html>

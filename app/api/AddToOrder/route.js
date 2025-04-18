@@ -5,11 +5,12 @@ const db = mysqlPool.promise();
 
 export async function POST(request) {
     try {
-        const { Userid, order_date, totalPrice, cart } = await request.json();
+        const { Userid, order_date, totalPrice, cart ,address, phone } = await request.json();
 
+        console.log("Userid:", address, phone);
         const [result] = await db.query(
-            'INSERT INTO `order` (user_id, order_date, total_price) VALUES (?, ?, ?)', 
-            [Userid, order_date, totalPrice]
+            'INSERT INTO `order` (user_id, order_date, total_price, address, phone) VALUES (?, ?, ?, ?, ?)', 
+            [Userid, order_date, totalPrice, address, phone]
         );
 
         await addOrderDetail(cart, result.insertId, totalPrice);

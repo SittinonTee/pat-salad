@@ -1,46 +1,27 @@
 'use client';
 import React, { useState, useEffect, useContext } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { TextField, Button, Typography, Box, Stack, IconButton, InputAdornment } from '@mui/material'
+import { TextField, Button, Typography, Box, Stack, IconButton, InputAdornment ,Select, MenuItem, FormControl, InputLabel } from '@mui/material'
 import './edit.css';
+
+
+
+
+
+
 export default function page() {
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [type, setType] = useState('');
+  // const router = useRouter();
+  // const searchParams = useSearchParams();
+  const [type, setType] = useState('salad');
   const [data, setData] = useState([]);
-  // const [datamenu, setDatamenu] = useState([]);
+  const [err, setError] = useState(null);
 
-  useEffect(() => {
-    const getType = searchParams.get("type");
-    setType(getType);
-  }, [searchParams]);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
-
-    if (!type) return;
-
-    const getdatamenu = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Getmenu?type=${type}`);
-        if (!res.ok) throw new Error('Failed to fetch data');
-        const DataMenu = await res.json();
-        setData(DataMenu);
-        console.log("Menu-Data = ", DataMenu);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-
-    getdatamenu();
-  }, [type]);
 
 
   const [selectedMenu, setSelectedMenu] = useState({
+    menu_id: '',
     nameENG: '',
     nameTHAI: '',
     price: '',
@@ -48,8 +29,291 @@ export default function page() {
     image_url: '',
   });
 
+  // const [datamenu, setDatamenu] = useState([]);
+
+  // useEffect(() => {
+  //   const getType = searchParams.get("type");
+  //   setType(getType);
+  // }, [searchParams]);
+
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
 
+
+  useEffect(() => {
+    if (!type) return;
+    console.log("dddddddd")
+    console.log(type)
+    getdatamenu();
+  }, [type]);
+
+  //-------------------------------------------------------API-------------------------------------------------
+
+  //-------------------------------------------------------Get-------------------------------------------------
+  const getdatamenu = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Getmenu?type=${type}`);
+      if (!res.ok) throw new Error('Failed to fetch data');
+      const DataMenu = await res.json();
+      setData(DataMenu);
+      console.log("Menu-Data = ", DataMenu);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+
+  //-------------------------------------------------------Del------------------------------------------------
+
+  const deletemunu = async () => {
+    const menu_id = selectedMenu.menu_id;
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Getmenu`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ menu_id }),
+    });
+
+    const data = await res.json();
+    // console.log(data)
+
+
+    if (res.ok) {
+      ClearData();
+      getdatamenu();
+      console.log("Delete Success", data);
+    } else {
+      setError(data.error)
+      console.error("Delete Failed", data.error);
+    }
+
+  };
+
+  //-------------------------------------------------------Edit-------------------------------------------------
+  const editmenu = async (menuData) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Getmenu`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify({
+        //   menu_id: selectedMenu.menu_id,
+        //   nameENG: selectedMenu.nameENG,
+        //   nameTHAI: selectedMenu.nameTHAI,
+        //   price: selectedMenu.price,
+        //   type: selectedMenu.type,
+        //   image_url: selectedMenu.image_url,
+        // }),
+
+
+        body: JSON.stringify(menuData),
+      });
+
+
+      if (res.ok) {
+        ClearData();
+        getdatamenu();
+      }
+
+      const data = await res.json();
+      console.log("Updated:", data);
+      setError(data.error)
+    } catch (err) {
+      setError(err.message);
+      console.error("Update failed:", err);
+    }
+  };
+
+  //-------------------------------------------------------Add-------------------------------------------------
+  const addmenu = async (menuData) => {
+
+    try {
+      console.log("addmenu", menuData);
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Getmenu`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(menuData),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        ClearData();
+        getdatamenu();
+      }
+      setError(data.error)
+    } catch (error) {
+      console.error("Add menu error:", error);
+    }
+  };
+
+
+
+
+
+  //-------------------------------------------------------Model-------------------------------------------------
+  const [contentModel, setcontentModel] = useState({
+    title: '',
+    content: '',
+    btmshow: '',
+  });
+
+
+
+  // const deleteBtn = document.getElementById('deleteBtn');
+  // const modal = document.getElementById('modal');
+
+
+  const clickbtn = (title, content, btmshow) => {
+    setcontentModel({
+      title: title,
+      content: content,
+      btmshow: btmshow,
+    });
+    modal.classList.add('active');
+
+  }
+
+
+  // const closeBtn = document.getElementById('closeBtn');
+  // const cancelBtn = document.getElementById('cancelBtn');
+  // const confirmBtn = document.getElementById('confirmBtn');
+
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+  }
+
+
+
+  const handleModalAction = async (action) => {
+
+    console.log(action)
+    if (action === "Delete") {
+      console.log(selectedMenu.menu_id)
+      deletemunu(selectedMenu.menu_id);
+
+    } else if (action === "Add") {
+      // console.log("1")
+      await handleUpload("Add");
+      // await console.log(updatedMenu)
+      // console.log("2")
+      // await addmenu();
+      // console.log("3")
+
+    } else if (action === "Save") {
+      await handleUpload("Save");
+      // await editmenu();
+    }
+    closeModal();
+  };
+
+
+
+
+
+
+
+
+  //-======================================================upload img====================================================================================
+  //   useEffect(() => {
+  //  console.log(file)
+  //   },[file])
+
+  useEffect(() => {
+    setPreview(null);
+  }, [selectedMenu.image_url]);
+
+
+  const [preview, setPreview] = useState(null);
+  const [file, setFile] = useState(null);
+
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFile(file);
+      setPreview(URL.createObjectURL(file));
+    }
+    //   setSelectedMenu((prev) => ({
+    //     ...prev,
+    //     image_url: URL.createObjectURL(file),
+    //   }));
+    // }
+  };
+
+  // useEffect(() => {
+  //   console.log("SelectedMenu updated:", selectedMenu);
+  // }, [selectedMenu]);
+
+
+  const handleUpload = async (check) => {
+    console.log("1")
+    if (!file) return;
+    console.log("2")
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('menuname', selectedMenu.nameENG);
+    formData.append('type', selectedMenu.type);
+
+    const res = await fetch('/api/Getmenu/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await res.json();
+
+    if (res.ok) {
+      console.log("urlllllllll = ", result.url);
+      const updatedMenu = {
+        ...selectedMenu,
+        image_url: result.url,
+      };
+      console.log("Upload success: ", { check }, updatedMenu);
+
+
+      if (check === "Add") {
+        addmenu(updatedMenu);
+      } else {
+        editmenu(updatedMenu);
+      }
+
+    }
+  };
+
+
+
+
+  const ClearData = () => {
+    setSelectedMenu({
+      menu_id: '',
+      nameENG: '',
+      nameTHAI: '',
+      price: '',
+      type: '',
+      image_url: '',
+    });
+
+
+    setFile(null);
+    setPreview(null);
+    setError(null);
+
+    // const fileInput = document.getElementById('upload');
+    // if (fileInput) {
+    //   fileInput.value = '';
+    // }
+  };
+
+
+
+
+  //-------------------------------------------------------Return-------------------------------------------------
   return (
 
     <div className='container'>
@@ -63,82 +327,82 @@ export default function page() {
         <div className='Boxtitle'>
 
           <div
-            className={`box-item ${type === 'Salad' ? 'active' : ''}`}
-            onClick={() => router.push('Editmenu?type=Salad')}
+            className={`box-item ${type === 'salad' ? 'active' : ''}`}
+            onClick={() => setType('salad')}
           >
             <h2>Salad</h2>
           </div>
 
           <div
             className={`box-item ${type === 'wrap' ? 'active' : ''}`}
-            onClick={() => router.push('Editmenu?type=wrap')}
+            onClick={() => setType('wrap')}
           >
             <h2>Wrap</h2>
           </div>
 
           <div
-            className={`box-item ${type === 'Fried' ? 'active' : ''}`}
-            onClick={() => router.push('Editmenu?type=Fried')}
+            className={`box-item ${type === 'fried' ? 'active' : ''}`}
+            onClick={() => setType('fried')}
           >
             <h2>Fried</h2>
           </div>
 
           <div
-            className={`box-item ${type === 'Drink' ? 'active' : ''}`}
-            onClick={() => router.push('Editmenu?type=Drink')}
+            className={`box-item ${type === 'drink' ? 'active' : ''}`}
+            onClick={() => setType('drink')}
           >
             <h2>Drink</h2>
           </div>
-
         </div>
 
         <div className='gpboxmenu'>
-
           {data.map((datamenu, index) => {
             return (
               <div key={datamenu.id || index} className="Boxmenu" onClick={() => setSelectedMenu(datamenu)}>
-
                 <div className="Menu-name">{datamenu.nameENG}</div>
-
                 <div className="Menu-Image"><img src={datamenu.image_url} alt={datamenu.name} /></div>
-
                 <div className="Menu-price">{datamenu.price}</div>
-
               </div>
             );
           })}
 
         </div>
-        {/* <div key={datamenu.id || index} className="Boxmenu">
-
-          <div className="Menu-name">*{datamenu.nameENG}}</div>
-
-          <div className="Menu-Image">{<img src={datamenu.image_url} alt={datamenu.name} />}</div>
-
-          <div className="Menu-price">{{datamenu.price}}</div>
-
-        </div> */}
-
       </div>
 
+
+
       <div className='right'>
-
         <div className='titleright'><h1>Pat-Salad</h1></div>
-
-        <div className='UserID'><h1>UserID</h1></div>
-
-
-            <div className="ImagePreviewArea">
-
-              {selectedMenu.image_url && (
-                <div className="Image">
-
-                  <img src={selectedMenu.image_url} alt={selectedMenu.nameENG || "Selected Menu"} />
-                </div>
-
-              )}
-
+        <div className='UserID' ><h1><a href={`../Login`} className="signup">Logout</a></h1></div>
+        <div className="ImagePreviewArea">
+          {(preview || selectedMenu.image_url) && (
+            <div className="Image">
+              <img
+                src={preview || selectedMenu.image_url}
+                alt={selectedMenu.nameENG || "Selected Menu"}
+              />
             </div>
+          )}
+        </div>
+        <div className="ImageChoose_ImageArea">
+          <label htmlFor="upload" className="choose_image">
+            choose image
+          </label>
+          <input
+            id="upload"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            style={{ display: 'none' }}
+          />
+          <button
+            className="clearBtn"
+            onClick={ClearData}
+          >
+            Clear
+          </button>
+        </div>
+
 
 
         <form className='EditZone'>
@@ -152,7 +416,7 @@ export default function page() {
             onChange={(e) =>
               setSelectedMenu((prev) => ({ ...prev, nameENG: e.target.value }))
             }
-            InputLabelProps={{ shrink: true }}
+          // InputLabelProps={{ shrink: true }}
           />
           <TextField
             className='TF-input'
@@ -163,7 +427,7 @@ export default function page() {
             onChange={(e) =>
               setSelectedMenu((prev) => ({ ...prev, nameTHAI: e.target.value }))
             }
-            InputLabelProps={{ shrink: true }}
+          // InputLabelProps={{ shrink: true }}
           />
           <TextField
             className='TF-input'
@@ -174,34 +438,87 @@ export default function page() {
             onChange={(e) =>
               setSelectedMenu((prev) => ({ ...prev, price: e.target.value }))
             }
-            InputLabelProps={{ shrink: true }}
+          // InputLabelProps={{ shrink: true }}
           />
-          <TextField
-            className='TF-input'
-            label="Type"
-            name="Type"
-            variant="standard"
-            value={selectedMenu.type || ''}
-            onChange={(e) =>
-              setSelectedMenu((prev) => ({ ...prev, type: e.target.value }))
-            }
-            InputLabelProps={{ shrink: true }}
-          />
+          <FormControl variant="standard" className='TF-input'>
+            <InputLabel id="type-label">Type</InputLabel>
+            <Select
+              labelId="type-label"
+              value={selectedMenu.type || ''}
+              onChange={(e) =>
+                setSelectedMenu((prev) => ({ ...prev, type: e.target.value }))
+              }
+            >
+              <MenuItem value="salad">Salad</MenuItem>
+              <MenuItem value="wrap">Wrap</MenuItem>
+              <MenuItem value="fried">Fried</MenuItem>
+              <MenuItem value="drink">Drink</MenuItem>
+            </Select>
+          </FormControl>
 
 
-          <div className="ButtonGroup">
 
-            <button className="SaveBtn">Deleted</button>
-
-            <button className="SaveBtn">Add</button>
-
-            <button className="SaveBtn">Save</button>
-
+          <div className='err'>
+            {err ? <Typography color="error">{err}</Typography> : null}
           </div>
         </form>
+        <div className="ButtonGroup">
+          <button
+            className="Btn DeleteBtn"
+            id="BtnDeleteBtn"
+            disabled={!selectedMenu || selectedMenu.nameENG === ''}
+            onClick={() => clickbtn("ยืนยันการลบ", `แน่ใจไหมว่าต้องการลบรายการ  ${selectedMenu.nameENG}`, "Delete")
+            }
+          >
+            Delete
+          </button>
+          <button
+            className="Btn AddBtn"
+            id="BtnAddBtn"
+            disabled={!selectedMenu || selectedMenu.nameENG === '' || selectedMenu.nameTHAI === '' || selectedMenu.price === '' || selectedMenu.type === ''}
+            onClick={() => clickbtn("เพิ่มเมนูใหม่", `ต้องการเพิ่มรายการ ${selectedMenu.nameENG} ไหม`, "Add")
+            }
+          >
+            Add
+          </button>
+          <button
+            className="Btn SaveBtn"
+            id="BtnSaveBtn"
 
+            disabled={!selectedMenu || selectedMenu.nameENG === '' || selectedMenu.nameTHAI === '' || selectedMenu.price === '' || selectedMenu.type === ''}
+            onClick={() => clickbtn("บันทึกข้อมูล", `ยืนยันการแก้ไขเมนู ${selectedMenu.nameENG}`, "Save")}
+          >
+            Edit
+          </button>
+        </div>
       </div>
 
+
+
+
+
+
+      <div id="modal" className="modal-overlay">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h2 className="modal-title">{contentModel.title}</h2>
+            <button className="close-button" id="closeBtn" onClick={closeModal}>&times;</button>
+          </div>
+          <div className="modal-body">
+            <p>{contentModel.content}</p>
+          </div>
+          <div className="modal-footer">
+            <button className="cancelBtn" id="cancelBtn" onClick={closeModal}>cancel</button>
+            <button className="confirmBtn" id="confirmBtn" onClick={() => handleModalAction(contentModel.btmshow)}>{contentModel.btmshow}</button>
+          </div>
+        </div>
+      </div>
+
+
     </div>
+
+
+
+
   )
 }
