@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { Readable } from 'stream';
 
-// ปิด bodyParser
+
 export const config = {
   api: {
     bodyParser: false,

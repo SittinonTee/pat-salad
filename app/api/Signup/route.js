@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-// import bcrypt from 'bcryptjs';
 import { mysqlPool } from "@/utils/db";
 // import { useRouter } from 'next/router';
 
@@ -18,15 +17,12 @@ export async function POST(request) {
     }
 
 
-    // const hashedPassword = await bcrypt.hash(password, 10);
-
 
     const [result] = await db.query(
       `INSERT INTO user (username, first_name, last_name, phone, address, email, password,type) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [username, fname, lname, phone,  address ,email,  password , "user" ]
     );
-
 
     // return NextResponse.json(
     //   {

@@ -12,9 +12,9 @@ export default function page() {
 
   const router = useRouter();
 
-
   //--------------------------------------------------------showpassword--------------------------------
   const [showPassword, setShowPassword] = useState(false);
+  
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -46,16 +46,13 @@ export default function page() {
     e.preventDefault()
     // setError(null)
 
-
-
     if (!formData.username || !formData.password) {
       setError('Please fill in all fields');
       return;
     }
 
 
-
-    console.log(formData)
+    // console.log(formData)
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Login`, {
         method: 'POST',
@@ -76,8 +73,6 @@ export default function page() {
         // console.log(result.type === "user");
         if (result.type === "user") {
           console.log("GoHomepage", result)
-
-
           sessionStorage.setItem("user", JSON.stringify(result));
           router.push("../Homepage");
           // router.push(`../Homepage?userId=${result.userId}&username=${result.username}`);
@@ -98,7 +93,7 @@ export default function page() {
 
 
 
-
+//---------------------------------------------------------return---------------------------------------------
   return (
     <div className='Loginpage'>
 
@@ -154,10 +149,12 @@ export default function page() {
                 maxWidth: "250px",
                 backgroundColor: "#547616",
                 borderRadius: "15px",
-                padding: "15px",
+                padding: "5px",
                 color: "white",
-                fontSize: "20px",
-                '&:hover': { backgroundColor: "#405812", color: "" }
+                fontSize: "30px",
+                '&:hover': { backgroundColor: "#405812", color: "" },
+                boxShadow: "0px 4px 10px rgba(30, 30, 30, 0.5)",
+                fontWeight: "bold",
               }}
 
             >
@@ -181,9 +178,7 @@ export default function page() {
               label="User"
             />
           </FormControl>
-     
-
-
+  
 
           <FormControl className='TF-password'>
             <InputLabel htmlFor="outlined-adornment-password" className='labelintutpassword'>Password</InputLabel>
@@ -217,16 +212,6 @@ export default function page() {
 
 
       </div>
-
-
-
-
-
-
-
-
-
-
     </div>
 
   );

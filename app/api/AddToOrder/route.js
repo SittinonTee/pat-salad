@@ -5,12 +5,28 @@ const db = mysqlPool.promise();
 
 export async function POST(request) {
     try {
-        const { Userid, order_date, totalPrice, cart ,address, phone } = await request.json();
+        const { Userid, order_date, totalPrice, cart, address, phone } = await request.json();
+
+        const date = new Date(order_date);
+        const thaiMonths = [
+            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+        ];
+
+        const day = date.getDate();
+        const month = thaiMonths[date.getMonth()];
+        const year = date.getFullYear() + 543; 
+        const hour = date.getHours().toString().padStart(2, '0');
+        const minute = date.getMinutes().toString().padStart(2, '0');
+
+        const dateformat = `${day} ${month} ${year} เวลา ${hour}:${minute} น.`;
+
+        // console.log(formatted);
 
         console.log("Userid:", address, phone);
         const [result] = await db.query(
-            'INSERT INTO `order` (user_id, order_date, total_price, address, phone) VALUES (?, ?, ?, ?, ?)', 
-            [Userid, order_date, totalPrice, address, phone]
+            'INSERT INTO `order` (user_id, order_date, total_price, address, phone) VALUES (?, ?, ?, ?, ?)',
+            [Userid, dateformat, totalPrice, address, phone]
         );
 
         await addOrderDetail(cart, result.insertId, totalPrice);
@@ -25,10 +41,10 @@ export async function POST(request) {
 async function addOrderDetail(cart, orderId, totalPrice) {
     try {
         const orderDetails = cart.map(item => [
-            orderId,       
-            item.menu_id,   
-            item.quantity,   
-            item.price,      
+            orderId,
+            item.menu_id,
+            item.quantity,
+            item.price,
             totalPrice
         ]);
 
@@ -37,7 +53,7 @@ async function addOrderDetail(cart, orderId, totalPrice) {
         }
 
         const [orderDetailResult] = await db.query(
-            `INSERT INTO order_detail (order_id, menu_id, quantity, unit_price, total_price) VALUES ?`, 
+            `INSERT INTO order_detail (order_id, menu_id, quantity, unit_price, total_price) VALUES ?`,
             [orderDetails]
         );
 

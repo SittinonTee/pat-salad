@@ -42,13 +42,10 @@ export default function page() {
 
 
 
-
-
-
   useEffect(() => {
     if (!type) return;
-    console.log("dddddddd")
-    console.log(type)
+    // console.log("dddddddd")
+    // console.log(type)
     getdatamenu();
   }, [type]);
 
@@ -195,12 +192,6 @@ export default function page() {
 
 
 
-
-
-
-
-
-
   //-======================================================upload img====================================================================================
   //   useEffect(() => {
   //  console.log(file)
@@ -208,14 +199,15 @@ export default function page() {
 
 
 
-  const handleModalAction = async (action) => {
+  const handleModalAction = async (title) => {
 
-    console.log(action)
-    if (action === "Delete") {
+    console.log(title)
+    if (title === "Delete") {
       console.log(selectedMenu.menu_id)
-      deletemunu(selectedMenu.menu_id);
+      await deletemunu(selectedMenu.menu_id);
+      openModalsuccess();
 
-    } else if (action === "Add") {
+    } else if (title === "Add") {
       // console.log("1")
       await handleUpload("Add");
       // await console.log(updatedMenu)
@@ -223,15 +215,12 @@ export default function page() {
       // await addmenu();
       // console.log("3")
 
-    } else if (action === "Save") {
+    } else if (title === "Save") {
       await handleUpload("Save");
       // await editmenu();
     }
     closeModal();
   };
-
-
-
 
 
   useEffect(() => {
@@ -287,7 +276,6 @@ export default function page() {
         image_url: result.url,
       };
     } else {
-   
       updatedMenu = {
         ...selectedMenu,
         image_url: selectedMenu.image_url,
@@ -297,9 +285,11 @@ export default function page() {
     console.log("Upload success: ", { check }, updatedMenu);
   
     if (check === "Add") {
-      addmenu(updatedMenu);
+      await addmenu(updatedMenu);
+      openModalsuccess();
     } else {
-      editmenu(updatedMenu);
+      await editmenu(updatedMenu);
+      openModalsuccess();
     }
   };
   
@@ -329,6 +319,16 @@ export default function page() {
   };
 
 
+
+
+const [showModalsuccess, setShowModalsuccess] = useState(false);
+
+  function openModalsuccess() {
+    setShowModalsuccess(true);
+    setTimeout(() => {
+        setShowModalsuccess(false);
+   }, 5000);
+}
 
 
   //-------------------------------------------------------Return-------------------------------------------------
@@ -380,7 +380,7 @@ export default function page() {
                 setSelectedMenu(datamenu);
               }}>
                 <div className="Menu-name">{datamenu.nameENG}</div>
-                <div className="Menu-Image"><img src={datamenu.image_url} alt={datamenu.name} /></div>
+                <div className="Menu-Image"><img src={datamenu.image_url||"/img/question-mark.png"} alt={datamenu.name} /></div>
                 <div className="Menu-price">{datamenu.price}</div>
               </div>
             );
@@ -398,7 +398,7 @@ export default function page() {
           {(preview || selectedMenu.image_url) && (
             <div className="Image">
               <img
-                src={preview || selectedMenu.image_url}
+                src={preview || selectedMenu.image_url||"/img/question-mark.png"}
                 alt={selectedMenu.nameENG || "Selected Menu"}
               />
             </div>
@@ -486,7 +486,7 @@ export default function page() {
           <button
             className="Btn DeleteBtn"
             id="BtnDeleteBtn"
-            disabled={!selectedMenu || selectedMenu.nameENG === ''}
+            disabled={!selectedMenu || selectedMenu.nameENG === '' || selectedMenu.nameTHAI === '' || selectedMenu.price === '' || selectedMenu.type === ''}
             onClick={() => clickbtn("ยืนยันการลบ", `แน่ใจไหมว่าต้องการลบรายการ  ${selectedMenu.nameENG}`, "Delete")
             }
           >
@@ -515,9 +515,6 @@ export default function page() {
 
 
 
-
-
-
       <div id="modal" className="modal-overlay">
         <div className="modal-content">
           <div className="modal-header">
@@ -533,6 +530,22 @@ export default function page() {
           </div>
         </div>
       </div>
+
+
+
+
+
+
+
+      <div className={`modal-success ${showModalsuccess ? 'active' : ''}`} >
+        <div className="success-popup">
+            <div className="success-icon"><img src="/img/check-button.png" alt="check"></img></div>
+            <div className="success-title">เสร็จสิ้น</div>
+            <div className="success-message">การทำรายการของคุณเสร็จสิ้นเรียบร้อย</div>
+            <button className="close1-btn" onClick={() => setShowModalsuccess(false)}>ตกลง</button>
+        </div>
+    </div>
+
 
 
     </div>

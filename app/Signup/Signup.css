@@ -1,5 +1,5 @@
 .Signuppage {
-  background-image: url('/img/bg-Login.png');
+  background-image: url('/img/bg-Signup.png');
   width: 100vw;
   height: 100vh;
   margin: 100;
@@ -114,3 +114,6 @@ div.err {
 .TF-password .MuiIconButton-root {
   border-radius: 50%;
 } */
+ /* .Boxitem{
+  background-color: #8a0000;
+ } */

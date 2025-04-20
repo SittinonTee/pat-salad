@@ -12,13 +12,6 @@ export async function GET(request) {
 
         console.log("userId:", userId);
 
-
-        if (!userId) {
-            return NextResponse.json({ error: "User ID is required" }, { status: 400 });
-        }
-
-        console.log("Fetching order for user:", userId);
-
         const [orders] = await db.query(
             "SELECT * FROM `order` WHERE user_id = ?", [userId]
         );

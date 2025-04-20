@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* กำหนดฟอนต์หลัก */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -20,7 +20,8 @@
     height: 100vh;
     background: linear-gradient(to right, #2e8b57 0%, #155724 100%);
     border-radius: 0px 40px 40px 0px;
-    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+    /* box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4); */
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.8));
 }
 
 .title {
@@ -81,7 +82,7 @@
 .Boxmenu {
     width: 175px;
     height: 175px;
-    background: linear-gradient(135deg, #2e8b57, #155724);
+    background: linear-gradient(135deg, #e0e0e0, rgb(234, 234, 234));
     border-radius: 15px;
     padding: 12px;
     display: flex;
@@ -301,7 +302,7 @@ div.Menu-name {
 
 
   .modal-overlay {
-    position: fixed; /* กำหนดตำแหน่งแบบคงที่ไม่เลื่อนตามการ scroll */
+    position: fixed; 
     top: 0; 
     left: 0; 
     width: 100%;
@@ -367,7 +368,7 @@ div.Menu-name {
   }
   
   .close-button:hover {
-    color: #000; /* เปลี่ยนสีเป็นดำเมื่อเมาส์ชี้ */
+    color: #000; 
   }
   
   .modal-body {
@@ -450,4 +451,103 @@ div.Menu-name {
     text-align: center;
     margin: 0px;
     padding: 0px;
+}
+
+
+
+
+
+
+
+
+.modal-success{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* display: flex; */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-success.active {
+  display: flex;
+}
+
+.success-popup {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-align: center;
+  padding: 30px 20px;
+  animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pop-in {
+  0% {
+      opacity: 0;
+      transform: scale(0.5);
+  }
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+.success-icon {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px;
+  /* position: relative; */
+}
+
+.success-icon img {
+  width:100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+.success-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+.close1-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  /* transition: background-color 0.2s; */
+}
+
+.close1-btn:hover {
+  background-color: #3e8e41;
 }

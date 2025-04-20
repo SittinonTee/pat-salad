@@ -21,19 +21,13 @@ import {
   ListItemText,
   IconButton
 } from '@mui/material';
-import { MoveToInbox as InboxIcon, Mail as MailIcon, ShoppingCart as ShoppingCartIcon } from '@mui/icons-material';
+// import { MoveToInbox as InboxIcon, Mail as MailIcon, ShoppingCart as ShoppingCartIcon } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 
 
 
 export const DataContext = createContext();
-
-// export const MenunameProvider = ({children}) =>{
-
-
-// }
-
 
 
 export default function navigationbar({ children }) {
@@ -53,44 +47,60 @@ export default function navigationbar({ children }) {
 
   const [cart, setCart] = useState([]);
   const [ordershistory, setOrdershistory] = useState([]);
+  
   const [showModal, setShowModal] = useState(false);
   const [showModalhistory, setShowModalhistory] = useState(false);
   const [showModalprofile, setShowModalprofile] = useState(false);
+  const [showModalsuccess, setShowModalsuccess] = useState(false);
 
 
 
-
-
+useEffect(()=>{
+// return router.push('/login')
+console.log("showModalsuccess",showModalsuccess)
+},[showModalsuccess])
 
 
   const openModal = () => {
-    console.log("openmodal");
+    // console.log("openmodal");
     setShowModal(true);
+    setShowModalhistory(false);
+    setShowModalprofile(false);
   };
 
 
   const closeModal = () => {
-    // modal.classList.remove('active');
     setShowModal(false);
   }
 
   const openModalhistory = () => {
-    console.log("openmodalhistory");
+    // console.log("openmodalhistory");
     setShowModalhistory(true);
+    setShowModal(false);
+    setShowModalprofile(false);
   };
 
 
   const closeModalhistory = () => {
-    // modal.classList.remove('active');
     setShowModalhistory(false);
   }
 
+  function openModalsuccess() {
+    setShowModalsuccess(true);
+    setTimeout(() => {
+        setShowModalsuccess(false);
+        closeModal();
+        closeModalhistory();
+   }, 10000);
+}
 
 
 
 
 
 
+
+//---------------------------------------------------------addtocart--------------------------------------------------
   const addToCart = (menu) => {
     setCart(preCart => {
       const checkmenu = preCart.find(i => i.nameENG === menu.nameENG);
@@ -106,10 +116,7 @@ export default function navigationbar({ children }) {
         return [...preCart, { ...menu, quantity: 1 }]
       }
     })
-
     console.log("Orde = ", cart);
-
-
   }
 
   // const handleIncrease = (index) => {
@@ -126,9 +133,7 @@ export default function navigationbar({ children }) {
       newCart[index].quantity -= 1;
       setCart(newCart);
     } else {
-
-      newCart.splice(index, 1);
-      setCart(newCart);
+      handleDelete(index);
     }
   };
 
@@ -142,17 +147,10 @@ export default function navigationbar({ children }) {
 
 
 
-
-
-
-
-  const handleCheckBill = () => {
-
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const totalPrice = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
-
-
-  };
+  // const handleCheckBill = () => {
+  //   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  //   const totalPrice = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
+  // };
 
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -192,6 +190,7 @@ export default function navigationbar({ children }) {
         const data = await res.json();
         console.log('add order success:', data);
         setCart([])
+        openModalsuccess();
       } else {
         const errorData = await res.json();
         setError(errorData.error || 'add order fail');
@@ -207,8 +206,6 @@ export default function navigationbar({ children }) {
 
 
   const checksubmit = async () => {
-
-
 
     if (!add_and_phone.address || !add_and_phone.phone) {
       setError('Please fill in address and phone number');
@@ -282,8 +279,6 @@ export default function navigationbar({ children }) {
   }));
 
 
-
-
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -293,11 +288,10 @@ export default function navigationbar({ children }) {
   const DrawerList = (
     <Box sx={{ width: 400 }} role="presentation" onClick={toggleDrawer(false)}>
       <List sx={{ padding: 0 }}>
-
         <div className='Toplist'>This is Your Order</div>
 
-        {cart.map((Data, index) => (
 
+        {cart.map((Data, index) => (
           <ListItem key={Data.menu_id} disablePadding>
             <ListItemButton >
               <ListItemIcon>
@@ -305,9 +299,7 @@ export default function navigationbar({ children }) {
               </ListItemIcon>
               <ListItemText primary={Data.nameENG} className="menu-name" />
             </ListItemButton>
-
             <Box sx={{ display: 'flex', alignItems: 'center', }}>
-
               <div className='updown'>
                 <IconButton onClick={(e) => { e.stopPropagation(); handleDecrease(index); }}>
                   <Remove sx={{ fontSize: '14px', color: 'orange' }} />
@@ -322,14 +314,8 @@ export default function navigationbar({ children }) {
                 <div className='orderPrice'>
                   ฿{Data.price * Data.quantity}
                 </div>
-
               </div>
-
-
-
-
             </Box>
-
           </ListItem>
         ))}
         <div className='buttom-space'>
@@ -341,7 +327,7 @@ export default function navigationbar({ children }) {
 
 
           {/* <div className="check-bill-button" onClick={() => {handleCheckBill();AddToOrder();openModal()}}> */}
-          <button className="check-bill-button" disabled={cart.length === 0} onClick={() => { handleCheckBill(); openModal() }}>
+          <button className="check-bill-button" disabled={cart.length === 0} onClick={() => { openModal() }}>
             เช็คบิล
           </button>
 
@@ -387,13 +373,19 @@ export default function navigationbar({ children }) {
             <div className='boxitem' onClick={() => setShowModalprofile(true)}>
               <h1>Profile</h1>
             </div>
-            <div className='boxitem' onClick={async () => { await openModalhistory(); await fetchOrderHistory(); openModalhistory() }}>
+            <div className='boxitem' onClick={async () => { await openModalhistory(); await fetchOrderHistory();}}>
               <h1>History</h1>
             </div>
+            {/* <div className='boxitem' onClick={() => openModalsuccess()}>
+              <h1>Hissdsdstory</h1>
+            </div> */}
             <div className='boxitem'>
               <IconButton aria-label="cart" onClick={toggleDrawer(true)}>
                 <StyledBadge badgeContent={cart.length} color="secondary">
-                  <ShoppingCartIcon />
+                <i className="fas fa-shopping-cart inconcart"></i>
+
+
+                  
                 </StyledBadge>
               </IconButton>
               <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
@@ -405,15 +397,14 @@ export default function navigationbar({ children }) {
         <DataContext.Provider value={{ user, setUser, add_and_phone, setadd_and_phone, cart, setCart, addToCart, showModal, setShowModal, openModal, closeModal, totalPrice, AddToOrder, showModalhistory, setShowModalhistory, openModalhistory, closeModalhistory, ordershistory, setOrdershistory }}>
           {children}
         </DataContext.Provider>
-
-
-
-
-
-
-
       </div>
 
+
+
+
+
+
+{/* -------------------------------------------------popup-------------------------------------------------------------- */}
 
 
       <div id="modal" className={`modal-overlay ${showModal ? 'active' : ''}`}>
@@ -421,12 +412,10 @@ export default function navigationbar({ children }) {
           <button className="modal-close" onClick={closeModal}>&times;</button>
 
           <h1 className="modal-title">ข้อมูลการจัดส่ง</h1>
-
-
           <div className="form-group">
 
             <label className="form-label">
-              <i style={{ display: 'flex', alignItems: 'center', justifyContent: 'start' }} className="fas fa-map-marker-alt icon" ></i>
+              <i className="fas fa-map-marker-alt icon" ></i>
               ที่อยู่จัดส่ง
             </label>
 
@@ -441,14 +430,10 @@ export default function navigationbar({ children }) {
                 setadd_and_phone((prev) => ({ ...prev, address: e.target.value }))
               }
             ></textarea>
-
           </div>
-
-
           <div className="form-group">
-
             <label className="form-label">
-              <i style={{ display: 'flex', alignItems: 'center', justifyContent: 'start' }} className="fas fa-phone-alt icon"></i>
+              <i className="fas fa-phone-alt icon"></i>
               เบอร์โทรศัพท์
             </label>
             <input
@@ -467,7 +452,7 @@ export default function navigationbar({ children }) {
 
           <div className="order">
             <h3 className="order-title">
-              <i style={{ display: 'flex', alignItems: 'center', justifyContent: 'start', }} className="fas fa-list icon"></i>
+              <i className="fas fa-list icon"></i>
               <span className="order-text">รายการอาหารที่สั่ง</span>
             </h3>
 
@@ -503,7 +488,7 @@ export default function navigationbar({ children }) {
             <button className="btn btn-cancel" onClick={closeModal}>
               <h3>ยกเลิก</h3>
             </button>
-            <button className="btn btn-confirm" onClick={() => { checksubmit() }}>
+            <button className="btn btn-confirm" onClick={ async () => { await checksubmit();}}>
               <h3>ยืนยันคำสั่งซื้อ</h3>
             </button>
           </div>
@@ -526,7 +511,9 @@ export default function navigationbar({ children }) {
         <div className="history-container">
           <div className="history-header">
             <div className="history-title">ประวัติการสั่งซื้อของคุณ</div>
-            <button className="close-btn" onClick={closeModalhistory}>&times;</button>
+            <button className="close-btn" onClick={() => setShowModalhistory(false)}>
+              <CloseIcon sx={{ fontSize: '40px' }} />
+            </button>
           </div>
 
           <div className="history-content">
@@ -566,115 +553,139 @@ export default function navigationbar({ children }) {
 
 
 
-      <div className={`modal-Profile ${showModalprofile ? 'active' : ''}`}>
-        <div className="modal-content">
-          <div className='title2'>
-            <h1>Account Setting</h1>
-            <h2>ข้อมูลของผู้ใช้</h2>
-            <button className="close-btn" onClick={() => setShowModalprofile(false)}>
-              <CloseIcon sx={{ fontSize: '50px' }} />
-            </button>
-          </div>
+      <div className={`modal-Profile ${showModalprofile ? 'active' : ''}`} role="dialog" aria-modal="true" aria-labelledby="account-settings-title">
+  <div className="modal-content">
+    <header className='title2'>
+      <h1 id="account-settings-title">Account Setting</h1>
+      <h2>ข้อมูลของผู้ใช้</h2>
+      <button 
+        className="close-btn" 
+        onClick={() => setShowModalprofile(false)}
+        aria-label="Close"
+      >
+        <CloseIcon style={{ fontSize: '24px' }} />
+      </button>
+    </header>
 
-          <form className='userdetail'>
-
-            <div className="field-group">
-              <TextField
-                className='TF-input1'
-                label="Username"
-                name="Username"
-                variant="standard"
-                value={user.username || ''}
-                // onChange={handleChange}
-                InputLabelProps={{ shrink: true, sx: { fontSize: '20px', color: '#555', }, }}
-                // disabled={!editableFields.Username}
-                disabled={!isEditable}
-              />
-            </div>
-
-            <div className="field-group">
-              <TextField
-                className='TF-input1'
-                label="Email"
-                name="Email"
-                variant="standard"
-                value={user.email || ''}
-                // onChange={handleChange}
-                InputLabelProps={{ shrink: true, sx: { fontSize: '20px', color: '#555', }, }}
-                // disabled={!editableFields.Email}
-                disabled={!isEditable}
-              />
-            </div>
-
-            <div className="field-group">
-              <TextField
-                className='TF-input1'
-                label="Firstname"
-                name="Firstname"
-                variant="standard"
-                value={user.first_name || ''}
-                // onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
-                // disabled={!editableFields.Firstname}
-                disabled={!isEditable}
-              />
-            </div>
-
-            <div className="field-group">
-              <TextField
-                className='TF-input1'
-                label="Lastname"
-                name="Lastname"
-                variant="standard"
-                value={user.last_name || ''}
-                // onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
-                // disabled={!editableFields.Lastname}
-                disabled={!isEditable}
-              />
-            </div>
-
-            <div className="field-group">
-              <TextField
-                className='TF-input1'
-                label="Phone"
-                name="Phone"
-                variant="standard"
-                value={user.phone || ''}
-                // onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
-                // disabled={!editableFields.Phone}
-                disabled={!isEditable}
-              />
-            </div>
-
-            <div className="field-group">
-              <TextField
-                className='TF-input1'
-                label="Address"
-                name="Address"
-                variant="standard"
-                value={user.address || ''}
-                // onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
-                // disabled={!editableFields.Address}
-                disabled={!isEditable}
-              />
-            </div>
-
-          </form>
-
-          <div className='btnLogout'><button className="Logout" onClick={() => router.push('/Login')}>Logout</button></div>
-
-        </div>
-
+    <form className='userdetail'>
+      <div className="field-group">
+        <TextField
+          className='TF-input1'
+          label="Username"
+          name="username"
+          variant="standard"
+          value={user.username || ''}
+          InputLabelProps={{ 
+            shrink: true, 
+            sx: { fontSize: '16px', color: '#333' } 
+          }}
+          disabled={!isEditable}
+        />
       </div>
 
+      <div className="field-group">
+        <TextField
+          className='TF-input1'
+          label="Email"
+          name="email"
+          variant="standard"
+          value={user.email || ''}
+          InputLabelProps={{ 
+            shrink: true, 
+            sx: { fontSize: '16px', color: '#333' } 
+          }}
+          disabled={!isEditable}
+        />
+      </div>
+
+      <div className="field-group">
+        <TextField
+          className='TF-input1'
+          label="Firstname"
+          name="first_name"
+          variant="standard"
+          value={user.first_name || ''}
+          InputLabelProps={{ 
+            shrink: true, 
+            sx: { fontSize: '16px', color: '#333' } 
+          }}
+          disabled={!isEditable}
+        />
+      </div>
+
+      <div className="field-group">
+        <TextField
+          className='TF-input1'
+          label="Lastname"
+          name="last_name"
+          variant="standard"
+          value={user.last_name || ''}
+          InputLabelProps={{ 
+            shrink: true, 
+            sx: { fontSize: '16px', color: '#333' } 
+          }}
+          disabled={!isEditable}
+        />
+      </div>
+
+      <div className="field-group">
+        <TextField
+          className='TF-input1'
+          label="Phone"
+          name="phone"
+          variant="standard"
+          value={user.phone || ''}
+          InputLabelProps={{ 
+            shrink: true, 
+            sx: { fontSize: '16px', color: '#333' } 
+          }}
+          disabled={!isEditable}
+        />
+      </div>
+
+      <div className="field-group">
+        <TextField
+          className='TF-input1'
+          label="Address"
+          name="address"
+          variant="standard"
+          value={user.address || ''}
+          InputLabelProps={{ 
+            shrink: true, 
+            sx: { fontSize: '16px', color: '#333' } 
+          }}
+          disabled={!isEditable}
+          multiline
+          rows={2}
+        />
+      </div>
+    </form>
+
+    <div className='btnLogout'>
+      <button 
+        className="Logout" 
+        onClick={() => router.push('/Login')}
+        type="button"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</div>
 
 
 
 
 
+
+      <div className={`modal-success ${showModalsuccess ? 'active' : ''}`} >
+        <div className="success-popup">
+            <div className="success-icon"><img src="/img/check-button.png" alt="check"></img></div>
+            <div className="success-title">เสร็จสิ้น</div>
+            <div className="success-message">การทำรายการของคุณเสร็จสิ้นเรียบร้อย</div>
+            <button className="close1-btn" onClick={() => setShowModalsuccess(false)}>ตกลง</button>
+        </div>
+    </div>
 
 
 

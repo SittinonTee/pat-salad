@@ -11,8 +11,6 @@ import { DataContext } from './layout';
 
 
 import * as React from 'react';
-import Badge from '@mui/material/Badge';
-import { styled } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 
 
@@ -37,9 +35,9 @@ export default function Home() {
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
     if (!storedUser) {
-      router.push("/login");
+      router.push("/Login");
     } else {
-      console.log("Get user", JSON.parse(storedUser))
+      // console.log("Get user", JSON.parse(storedUser))
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
 
@@ -52,39 +50,21 @@ export default function Home() {
 
 
 
-  useEffect(() => {
-    console.log("checkadd", add_and_phone)
-  }, [add_and_phone]);
+  // useEffect(() => {
+  //   console.log("checkadd", add_and_phone)
+  // }, [add_and_phone]);
 
 
-
-  const StyledBadge = styled(Badge)(({ theme }) => ({
-    '& .MuiBadge-badge': {
-      right: -3,
-      top: 13,
-      border: `2px solid ${(theme.vars ?? theme).palette.background.paper}`,
-      padding: '0 4px',
-    },
-  }));
-
-
-
-
-
-
-
-
+//---------------------------------------------------------------return--------------------------------
   return (
     <div className='test'>
-
-
 
       <div ></div>
 
       <div className='buttomBox'>
         <div className='Buttomitem'>
           <div className='imageContainer'>
-            <img src='/salad.png' alt='icon' className='icon' />
+            <img src='/salad.png' alt='icon' className='iconmenu' />
           </div>
           <div className='textContainer' onClick={() => router.push('/Homepage/Menu?type=salad')}>
             <h1>Salad</h1>
@@ -92,7 +72,7 @@ export default function Home() {
         </div>
         <div className='Buttomitem' style={{ background: red }}>
           <div className='imageContainer'>
-            <img src='/wrap.png' alt='icon' className='icon' />
+            <img src='/wrap.png' alt='icon' className='iconmenu' />
           </div>
           <div className='textContainer' onClick={() => router.push('/Homepage/Menu?type=wrap')}>
             <h1>wrap</h1>
@@ -101,7 +81,7 @@ export default function Home() {
         </div>
         <div className='Buttomitem'>
           <div className='imageContainer' >
-            <img src='/fried.png' alt='icon' className='icon' />
+            <img src='/fried.png' alt='icon' className='iconmenu' />
           </div>
           <div className='textContainer' onClick={() => router.push('/Homepage/Menu?type=fried')}>
             <h1>Fried</h1>
@@ -109,7 +89,7 @@ export default function Home() {
         </div>
         <div className='Buttomitem'>
           <div className='imageContainer'>
-            <img src='/drink.png' alt='icon' className='icon' />
+            <img src='/drink.png' alt='icon' className='iconmenu' />
           </div>
           <div className='textContainer' onClick={() => router.push('/Homepage/Menu?type=drink')}>
             <h1>Drink</h1>

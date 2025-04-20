@@ -5,7 +5,6 @@ import './menu.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import { Typography } from '@mui/material';
-
 import { DataContext } from '../layout';
 
 // import {useSearchParams} from 'next/navigation';
@@ -21,15 +20,14 @@ export default function page() {
     const [error, setError] = useState(null);
 
 
-
-    const { user, setUser, add_and_phone, setadd_and_phone, cart, setCart, addToCart, showModal, setShowModal, openModal, closeModal, totalPrice, AddToOrder, showModalhistory, setShowModalhistory, openModalhistory, closeModalhistory, ordershistory, setOrdershistory } = useContext(DataContext);
-    // const [ordershistory, setOrdershistory] = useState([]);
+    // const { user, setUser, add_and_phone, setadd_and_phone, cart, setCart, addToCart, showModal, setShowModal, openModal, closeModal, totalPrice, AddToOrder, showModalhistory, setShowModalhistory, openModalhistory, closeModalhistory, ordershistory, setOrdershistory } = useContext(DataContext);
+    const { user, setUser, add_and_phone, setadd_and_phone, cart, setCart, addToCart} = useContext(DataContext);
 
 
     useEffect(() => {
         const storedUser = sessionStorage.getItem("user");
         if (!storedUser) {
-            //   router.push("/login");
+              router.push("/Login");
         } else {
             //   console.log(JSON.parse(storedUser))
             const parsedUser = JSON.parse(storedUser);
@@ -46,8 +44,6 @@ export default function page() {
     useEffect(() => {
         console.log("checkadd", add_and_phone)
     }, [add_and_phone]);
-
-
 
 
 
@@ -97,42 +93,7 @@ export default function page() {
 
 
 
-
-
-
-
-
-
-    //-----------------------------------------------------model-----------------------------------------------------
-
-
-
-
-    // const [showModal, setShowModal] = useState(false);
-
-    // const openModal = () => {
-    //     console.log("openmodal");
-    //     setShowModal(true);
-
-    // };
-
-
-    // const closeModal = () => {
-    //     modal.classList.remove('active');
-    //     setShowModal(false);
-    //   }
-
-
-
-
-
-
-
-
-
-
-
-
+//-----------------------------------------------------return------------------------------------------------------
 
     return (
         <div className="container">
@@ -149,7 +110,6 @@ export default function page() {
                     <h1 className="title">Fresh & Delicious</h1>
                     <h5 className="title1">Healthy ingredients, crafted with care</h5>
                 </div>
-
 
                 <div className="GroupBoxmenu">
                     <div
@@ -205,20 +165,6 @@ export default function page() {
                     })}
                 </div>
             </div>
-
-
-
-
-
-            {/* <div id="modal" className="modal-overlay"> */}
-
-
-
-
-
-
-
-
 
 
         </div>

@@ -17,9 +17,9 @@ export default function Signup() {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [error, setError] = useState(null);
 
-  const [showCfPassword, setShowCfPassword] = useState(false); // แก้ชื่อ state
-  const handleClickShowCfPassword = () => setShowCfPassword((show) => !show); // แก้ชื่อ function และให้เรียกถูก state
-  const [cfError, setCfError] = useState(null); // แก้ชื่อ state error ให้ไม่ชน
+  const [showCfPassword, setShowCfPassword] = useState(false); 
+  const handleClickShowCfPassword = () => setShowCfPassword((show) => !show); 
+  // const [cfError, setCfError] = useState(null);
 
 
   const handleMouseDownPassword = (event) => {
@@ -83,8 +83,6 @@ export default function Signup() {
       return;
     }
 
-
-
     // alert("Yes")
     await sendDataToBackend(formData);
   };
@@ -120,18 +118,12 @@ export default function Signup() {
         setError(null)
         // console.log(result)
         router.push('../Login')
-
       }
-
-
-
 
     } catch (err) {
       setError(err.message)
     }
   }
-
-
 
 
 
@@ -246,13 +238,6 @@ export default function Signup() {
             }}
           />
 
-
-
-
-
-
-
-
           <div className='gpbutton'>
 
             <div className='err'>
@@ -267,10 +252,12 @@ export default function Signup() {
                 maxWidth: "250px",
                 backgroundColor: "#547616",
                 borderRadius: "15px",
-                padding: "15px",
+                padding: "5px",
                 color: "white",
-                fontSize: "14px",
-                '&:hover': { backgroundColor: "#405812", color: "" } // เปลี่ยนสีเมื่อ hover
+                fontSize: "30px",
+                '&:hover': { backgroundColor: "#405812", color: "" },
+                boxShadow: "0px 4px 10px rgba(30, 30, 30, 0.5)",
+                fontWeight: "bold",
               }}
             >
               Signup
@@ -283,49 +270,7 @@ export default function Signup() {
             </div>
           </div>
         </form>
-
-        {/* <FormControl className='TF-User'>
-            <InputLabel htmlFor="outlined-adornment-password">User</InputLabel>
-            <OutlinedInput 
-              id="outlined-adornment-password"
-              type={'text'}
-              label="User"
-            />
-          </FormControl>
-     
-
-
-
-          <FormControl className='TF-password'>
-            <InputLabel htmlFor="outlined-adornment-password" className='labelintutpassword'>Password</InputLabel>
-            <OutlinedInput className='labelintutpassword'
-              id="outlined-adornment-password"
-              type={showPassword ? 'text' : 'password'}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={
-                      showPassword ? 'hide the password' : 'display the password'
-                    }
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    onMouseUp={handleMouseUpPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-          </FormControl> */}
-
-
-
-
-        {/* </div> */}
-        <div className='Boxitem'>
-        </div>
+        <div className='Boxitem'></div>
       </div>
     </div>
   );
