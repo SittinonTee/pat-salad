@@ -228,7 +228,7 @@
   border-color: red;
 }
 
-.container-menu{
+.container-menu {
   width: 100%;
   display: flex;
   align-items: center;
@@ -393,7 +393,6 @@
 .form-label {
   display: flex;
   align-items: center;
-  justify-content: start;
   font-weight: 500;
   color: #000000;
   background-color: #ffffff;
@@ -664,7 +663,7 @@
   padding: 8px 0;
   border-bottom: 1px dashed #eee;
   display: flex;
-  
+
 }
 
 /* .order-item:last-child {
@@ -716,6 +715,19 @@
 
 
 
+/* .modal-Profile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000000;
+  border: 2px solid #e5e7eb;
+  z-index: 999;
+  width: 80%;
+  height: 600px;
+} */
 .modal-Profile {
   display: none;
   position: fixed;
@@ -723,20 +735,30 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #f9fafb;
-  border: 2px solid #e5e7eb;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
-  width: 80%;
-  height: 600px;
+  justify-content: center;
+  align-items: center;
+  padding: 90px;
 }
 
 .modal-Profile.active {
   display: flex;
-  align-self: center;
-  justify-self: center;
-  border-radius: 20px;
-
 }
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 30px;
+  max-width: 60%;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+  /* gap: 20px; */
+}
+
 
 .title2 {
   width: 100%;
@@ -775,21 +797,25 @@
 .field-group {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   font-size: 20px;
   width: 400px;
   height: 100px;
 }
 
 .TF-input1 {
-  width: 100%;
+  width: 80%;
   padding: 20px;
 }
 
-.TF-input1 input {
-  font-size: 20px;
+.TF-input1 label.Mui-disabled {
+  color: #000000 !important;
+  font-weight: 500;
 }
+
+
 
 .btnLogout {
   width: 100%;
@@ -797,6 +823,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+  margin: 10px;
 }
 
 .Logout {
@@ -812,6 +839,7 @@
   cursor: pointer;
   transition: 0.3s ease;
 }
+
 .Logout:hover {
   background-color: #4e7b3f;
   color: #ffffff;

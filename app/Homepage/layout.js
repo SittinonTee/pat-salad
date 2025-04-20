@@ -614,7 +614,7 @@ export default function navigationbar({ children }) {
                 variant="standard"
                 value={user.first_name || ''}
                 // onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
+                InputLabelProps={{ shrink: true ,sx: { fontSize: '20px', color: '#555', }, }}
                 // disabled={!editableFields.Firstname}
                 disabled={!isEditable}
               />
@@ -628,7 +628,7 @@ export default function navigationbar({ children }) {
                 variant="standard"
                 value={user.last_name || ''}
                 // onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
+                InputLabelProps={{ shrink: true ,sx: { fontSize: '20px', color: '#555', }, }}
                 // disabled={!editableFields.Lastname}
                 disabled={!isEditable}
               />
@@ -642,7 +642,7 @@ export default function navigationbar({ children }) {
                 variant="standard"
                 value={user.phone || ''}
                 // onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
+                InputLabelProps={{ shrink: true ,sx: { fontSize: '20px', color: '#555', }, }}
                 // disabled={!editableFields.Phone}
                 disabled={!isEditable}
               />
@@ -656,14 +656,14 @@ export default function navigationbar({ children }) {
                 variant="standard"
                 value={user.address || ''}
                 // onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
+                InputLabelProps={{ shrink: true ,sx: { fontSize: '20px', color: '#555', }, }}
                 // disabled={!editableFields.Address}
                 disabled={!isEditable}
               />
             </div>
+            
 
           </form>
-
           <div className='btnLogout'><button className="Logout" onClick={() => router.push('/Login')}>Logout</button></div>
 
         </div>
