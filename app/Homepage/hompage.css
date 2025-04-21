@@ -655,6 +655,7 @@
   padding: 15px;
   max-height: 70vh;
   overflow-y: auto;
+  /* height: 300px; */
 }
 
 
@@ -682,6 +683,8 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   border: 1px solid #a7a7a7;
+  /* height: 600px; */
+
 }
 
 .bill-header {
@@ -691,6 +694,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e0e0e0;
+
 }
 
 .bill-date {

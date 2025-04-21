@@ -16,7 +16,6 @@ export async function GET(Request){
         )
         // console.log(data)
         return NextResponse.json(data, {status: 200})
-
     }catch(error){
         return NextResponse.json({error:"Failed to fetch"}, {status: 500})
     }
@@ -55,7 +54,7 @@ export async function PUT(request){
             'UPDATE menu SET nameTHAI=?, nameENG=?, price=?, type=?, image_url=? WHERE menu_id = ?',[nameTHAI, nameENG, price, type, image_url, menu_id]
         );
         if (result.affectedRows == 0){
-            return NextResponse.json({error: "ID Not found"}, {status: 404});
+            return NextResponse.json({error: "Menu not found"}, {status: 404});
         }
         return NextResponse.json({message: "Updated", menu_id}, {status: 200});
     } catch (error){

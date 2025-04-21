@@ -84,12 +84,13 @@ export default function page() {
 
 
     if (res.ok) {
-      ClearData();
+      ClearData(); 
       getdatamenu();
+      openModalsuccess();
       console.log("Delete Success", data);
     } else {
       setError(data.error)
-      console.error("Delete Failed", data.error);
+      // console.error("Delete Failed", data.error);
     }
 
   };
@@ -119,6 +120,7 @@ export default function page() {
       if (res.ok) {
         ClearData();
         getdatamenu();
+        openModalsuccess();
       }
 
       const data = await res.json();
@@ -126,7 +128,7 @@ export default function page() {
       setError(data.error)
     } catch (err) {
       setError(err.message);
-      console.error("Update failed:", err);
+      // console.error("Update failed:", err);
     }
   };
 
@@ -145,11 +147,12 @@ export default function page() {
       const data = await res.json();
       if (res.ok) {
         ClearData();
-        getdatamenu();
+        // await getdatamenu();
+        openModalsuccess();
       }
       setError(data.error)
     } catch (error) {
-      console.error("Add menu error:", error);
+      // console.error("Add menu error:", error);
     }
   };
 
@@ -178,6 +181,7 @@ export default function page() {
     });
     modal.classList.add('active');
 
+    
   }
 
 
@@ -205,7 +209,7 @@ export default function page() {
     if (title === "Delete") {
       console.log(selectedMenu.menu_id)
       await deletemunu(selectedMenu.menu_id);
-      openModalsuccess();
+      // openModalsuccess();
 
     } else if (title === "Add") {
       // console.log("1")
@@ -273,7 +277,7 @@ export default function page() {
   
       updatedMenu = {
         ...selectedMenu,
-        image_url: result.url,
+        image_url: result.url + `?t=${Date.now()}`,
       };
     } else {
       updatedMenu = {
@@ -282,14 +286,18 @@ export default function page() {
       };
     }
   
+    // const updatedMenu = {
+    //   ...selectedMenu,
+    //   image_url: result.url + `?t=${Date.now()}`, // เพิ่ม timestamp
+    // };
     console.log("Upload success: ", { check }, updatedMenu);
   
     if (check === "Add") {
       await addmenu(updatedMenu);
-      openModalsuccess();
+      // openModalsuccess();
     } else {
       await editmenu(updatedMenu);
-      openModalsuccess();
+      //  openModalsuccess();
     }
   };
   
@@ -325,6 +333,7 @@ const [showModalsuccess, setShowModalsuccess] = useState(false);
 
   function openModalsuccess() {
     setShowModalsuccess(true);
+    getdatamenu();
     setTimeout(() => {
         setShowModalsuccess(false);
    }, 5000);

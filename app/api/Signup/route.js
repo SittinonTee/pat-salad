@@ -17,7 +17,6 @@ export async function POST(request) {
     }
 
 
-
     const [result] = await db.query(
       `INSERT INTO user (username, first_name, last_name, phone, address, email, password,type) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,

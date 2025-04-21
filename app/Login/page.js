@@ -170,41 +170,6 @@ export default function page() {
           </div>
         </form>
 
-        {/* <FormControl className='TF-User'>
-            <InputLabel htmlFor="outlined-adornment-password">User</InputLabel>
-            <OutlinedInput 
-              id="outlined-adornment-password"
-              type={'text'}
-              label="User"
-            />
-          </FormControl>
-  
-
-          <FormControl className='TF-password'>
-            <InputLabel htmlFor="outlined-adornment-password" className='labelintutpassword'>Password</InputLabel>
-            <OutlinedInput className='labelintutpassword'
-              id="outlined-adornment-password"
-              type={showPassword ? 'text' : 'password'}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={
-                      showPassword ? 'hide the password' : 'display the password'
-                    }
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    onMouseUp={handleMouseUpPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-          </FormControl> */}
-
-        {/* </div> */}
         <div className='Boxitem'>
 
         </div>
